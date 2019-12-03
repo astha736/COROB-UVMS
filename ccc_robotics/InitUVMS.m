@@ -55,6 +55,7 @@ uvms.Jt = [];
 uvms.Jc = [];
 uvms.Jca = [];
 uvms.Jposc = []; % position-control Jacobian
+uvms.Jmac = [];
     
 uvms.xdot.jl = [];
 uvms.xdot.mu = [];
@@ -64,6 +65,7 @@ uvms.xdot.t = [];
 uvms.xdot.c = [];
 uvms.xdot.ca = [];
 uvms.xdot.posc = []; % position-control Refrence velocity
+uvms.xdot.mac = [];
     
 uvms.A.jl = zeros(7,7);
 uvms.A.mu = 0;
@@ -73,8 +75,11 @@ uvms.A.t = zeros(6,6);
 uvms.A.c = [];
 uvms.A.ca = zeros(3,3);
 uvms.A.posc = zeros(6,6);% position-control Activation
+uvms.A.mac = zeros(6,6);
 
 uvms.toolFrameError = zeros(6,1);
 uvms.totalError = zeros(6,1);
+
+uvms.mac.thresh = 5;
 end
 

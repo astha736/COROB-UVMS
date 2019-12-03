@@ -20,3 +20,9 @@ uvms.xdot.ha = -0.1 * norm(uvms.phi);
 [ang, lin] = CartError(uvms.wTgpos, uvms.wTv);
 uvms.xdot.posc = 0.2*[lin; ang]; %6x1 vector
 uvms.totalError = [lin;ang]; %6x1
+
+% call the sensor data to check the actual distance of the base from
+% the sea floor
+% fill this up correctly
+mac_velocity_upwards = 0.2*(uvms.mac.thresh - uvms.sensorDistance);
+uvms.xdot.mac = [0, 0,mac_velocity_upwards,0,0,0 ]';

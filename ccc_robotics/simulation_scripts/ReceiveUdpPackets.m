@@ -8,6 +8,8 @@ while condition
             uvms.sensorDistance = 0;
         else
             uvms.sensorDistance = double(sensorDistance);
+            disp('uvms.sensorDistance');
+            disp(uvms.sensorDistance);
         end
     end
     condition = (isempty(sensorDistance) == false);

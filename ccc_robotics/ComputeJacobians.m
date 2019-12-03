@@ -54,4 +54,7 @@ uvms.Jha = [zeros(1,7) nphi'*[zeros(3) eye(3)]];
 wRv = uvms.wTv(1:3,1:3); % world_Rotation_vehicle
 uvms.Jposc = [zeros(3,7) wRv zeros(3,3);zeros(3,7) zeros(3,3) wRv];
 
+% Minimum Altitude Control from sea floor 
+uvms.Jmac = [zeros(3,7) wRv zeros(3,3);zeros(3,7) zeros(3,3) zeros(3,3)];
+
 end

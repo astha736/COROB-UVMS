@@ -21,3 +21,8 @@ uvms.A.t = eye(6);
 % Position-control for base
 % always active
 uvms.A.posc = eye(6);
+% uvms.mac.thresh
+% norm(uvms.p(3)
+buff = 0.2;
+uvms.A.mac(3,3) = DecreasingBellShapedFunction(uvms.mac.thresh + buff ,uvms.mac.thresh + 2*buff, 0, 1, uvms.sensorDistance);
+

@@ -50,7 +50,8 @@ uvms.q = [-0.0031 0 0.0128 -1.2460 0.0137 0.0853-pi/2 0.0137]';
 % [x y z r(rot_x) p(rot_y) y(rot_z)]
 % RPY angles are applied in the following sequence
 % R(rot_x, rot_y, rot_z) = Rz (rot_z) * Ry(rot_y) * Rx(rot_x)
-uvms.p = [8.5 38.5 -38   0 -0.06 0.5]'; 
+%uvms.p = [8.5 38.5 -38   0 -0.06 0.5]'; 
+uvms.p = [48.5 11.5 -33 0 0 -pi/2]';
 
 % defines the goal position for the end-effector/tool position task
 uvms.goalPosition = [12.2025   37.3748  -39.8860]';
@@ -58,7 +59,8 @@ uvms.wRg = rotation(0, pi, pi/2);
 uvms.wTg = [uvms.wRg uvms.goalPosition; 0 0 0 1];
 
 % position-control goal Position
-uvms.gpos = [10.5 37.5 -38 degtorad(45) degtorad(45) 0]';
+%uvms.gpos = [10.5 37.5 -38 degtorad(45) degtorad(45) 0]';
+uvms.gpos = [50 12.5 -53 0 0 -pi/2]'; 
 wRgpos = rotation(uvms.gpos(4),uvms.gpos(5),uvms.gpos(6));
 uvms.wTgpos = [wRgpos uvms.gpos(1:3); 0 0 0 1];
 
@@ -76,10 +78,18 @@ for t = 0:deltat:end_time
     % receive altitude information from unity
     uvms = ReceiveUdpPackets(uvms, uAltitude);
     
+    disp('vehicle-velocity');
+    disp(uvms.p);
+    
     % main kinematic algorithm initialization
     % rhop order is [qdot_1, qdot_2, ..., qdot_7, xdot, ydot, zdot, omega_x, omega_y, omega_z]
     rhop = zeros(13,1);
     Qp = eye(13); 
+    % task (activation -> only gets activated when base is close to the floor)
+    % velocity -> upward velocity prop to error between the minimun
+    % (distance - actual distance )
+    % jacobian will be the same as position control
+    [Qp, rhop] = iCAT_task(uvms.A.mac,   uvms.Jmac,   Qp, rhop, uvms.xdot.mac, 0.0001,   0.01, 10);
     % the sequence of iCAT_task calls defines the priority
     [Qp, rhop] = iCAT_task(uvms.A.ha,   uvms.Jha,   Qp, rhop, uvms.xdot.ha, 0.0001,   0.01, 10); 
     % Position-Control task
