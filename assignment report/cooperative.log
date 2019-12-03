@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.2.10)  28 NOV 2019 19:45
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6930 64-bit) (preloaded format=pdflatex 2019.2.10)  3 DEC 2019 23:05
 entering extended mode
 **./cooperative.tex
 (cooperative.tex
@@ -364,7 +364,74 @@ Package caption3 Info: TeX engine: e-TeX on input line 64.
 \c@lotdepth=\count120
 \sf@top=\skip53
 \sf@bottom=\skip54
-) (cooperative.aux)
+) (cooperative.aux
+
+LaTeX Warning: Label `fig:1a' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:1a' multiply defined.
+
+
+LaTeX Warning: Label `fig:1a' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:1a' multiply defined.
+
+
+LaTeX Warning: Label `fig:1a' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:1a' multiply defined.
+
+
+LaTeX Warning: Label `fig:1a' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:1a' multiply defined.
+
+
+LaTeX Warning: Label `fig:1a' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:1a' multiply defined.
+
+
+LaTeX Warning: Label `fig:1a' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:1a' multiply defined.
+
+
+LaTeX Warning: Label `fig:1a' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:1a' multiply defined.
+
+
+LaTeX Warning: Label `fig:1a' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:1a' multiply defined.
+
+
+LaTeX Warning: Label `fig:1a' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:1a' multiply defined.
+
+
+LaTeX Warning: Label `fig:1a' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:1a' multiply defined.
+
+
+LaTeX Warning: Label `fig:1a' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:1a' multiply defined.
+
+)
 \openout1 = `cooperative.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 42.
@@ -463,46 +530,144 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 
 ] [2
 
-] [3] [4
+]
+<Task1/priority_posc/init_rpy/5.jpg, id=24, 1405.25pt x 1053.9375pt>
+File: Task1/priority_posc/init_rpy/5.jpg Graphic file (type jpg)
+<use Task1/priority_posc/init_rpy/5.jpg>
+Package pdftex.def Info: Task1/priority_posc/init_rpy/5.jpg  used on input line
+ 174.
+(pdftex.def)             Requested size: 266.14978pt x 199.60693pt.
+<Task1/priority_posc/rpy_45_45_0/5.jpg, id=25, 1405.25pt x 1053.9375pt>
+File: Task1/priority_posc/rpy_45_45_0/5.jpg Graphic file (type jpg)
+<use Task1/priority_posc/rpy_45_45_0/5.jpg>
+Package pdftex.def Info: Task1/priority_posc/rpy_45_45_0/5.jpg  used on input l
+ine 175.
+(pdftex.def)             Requested size: 266.14978pt x 199.60693pt.
+<Task1/priority_ha_off/init_rpy/5.jpg, id=26, 1405.25pt x 1053.9375pt>
+File: Task1/priority_ha_off/init_rpy/5.jpg Graphic file (type jpg)
+<use Task1/priority_ha_off/init_rpy/5.jpg>
+Package pdftex.def Info: Task1/priority_ha_off/init_rpy/5.jpg  used on input li
+ne 176.
+(pdftex.def)             Requested size: 266.14978pt x 199.60693pt.
+<Task1/priority_ha_off/rpy_45_45_0/5.jpg, id=27, 1405.25pt x 1053.9375pt>
+File: Task1/priority_ha_off/rpy_45_45_0/5.jpg Graphic file (type jpg)
+<use Task1/priority_ha_off/rpy_45_45_0/5.jpg>
+Package pdftex.def Info: Task1/priority_ha_off/rpy_45_45_0/5.jpg  used on input
+ line 177.
+(pdftex.def)             Requested size: 266.14978pt x 199.60693pt.
 
-] [5
+Overfull \hbox (88.72108pt too wide) in paragraph at lines 174--178
+[][] []
+ []
 
-] [6
+
+Overfull \hbox (88.72108pt too wide) in paragraph at lines 174--178
+[] []
+ []
+
+<Task1/priority_posc/init_rpy/task1_posc_c.jpg, id=28, 306.24413pt x 335.15213p
+t>
+File: Task1/priority_posc/init_rpy/task1_posc_c.jpg Graphic file (type jpg)
+<use Task1/priority_posc/init_rpy/task1_posc_c.jpg>
+Package pdftex.def Info: Task1/priority_posc/init_rpy/task1_posc_c.jpg  used on
+ input line 182.
+(pdftex.def)             Requested size: 73.18747pt x 80.0955pt.
+<Task1/priority_posc/rpy_45_45_0/task1_posc_c.jpg, id=29, 330.93637pt x 341.174
+62pt>
+File: Task1/priority_posc/rpy_45_45_0/task1_posc_c.jpg Graphic file (type jpg)
+<use Task1/priority_posc/rpy_45_45_0/task1_posc_c.jpg>
+Package pdftex.def Info: Task1/priority_posc/rpy_45_45_0/task1_posc_c.jpg  used
+ on input line 183.
+(pdftex.def)             Requested size: 84.28099pt x 86.88644pt.
+<Task1/priority_ha_off/init_rpy/task1_c.jpg, id=30, 316.18124pt x 313.47113pt>
+File: Task1/priority_ha_off/init_rpy/task1_c.jpg Graphic file (type jpg)
+<use Task1/priority_ha_off/init_rpy/task1_c.jpg>
+Package pdftex.def Info: Task1/priority_ha_off/init_rpy/task1_c.jpg  used on in
+put line 184.
+(pdftex.def)             Requested size: 88.71434pt x 87.95306pt.
+<Task1/priority_ha_off/rpy_45_45_0/task1_c.jpg, id=31, 340.8735pt x 379.71863pt
+>
+File: Task1/priority_ha_off/rpy_45_45_0/task1_c.jpg Graphic file (type jpg)
+<use Task1/priority_ha_off/rpy_45_45_0/task1_c.jpg>
+Package pdftex.def Info: Task1/priority_ha_off/rpy_45_45_0/task1_c.jpg  used on
+ input line 185.
+(pdftex.def)             Requested size: 66.53406pt x 74.11725pt.
+[3 <./Task1/priority_posc/init_rpy/5.jpg> <./Task1/priority_posc/rpy_45_45_0/5.
+jpg> <./Task1/priority_ha_off/init_rpy/5.jpg> <./Task1/priority_ha_off/rpy_45_4
+5_0/5.jpg> <./Task1/priority_posc/init_rpy/task1_posc_c.jpg> <./Task1/priority_
+posc/rpy_45_45_0/task1_posc_c.jpg> <./Task1/priority_ha_off/init_rpy/task1_c.jp
+g> <./Task1/priority_ha_off/rpy_45_45_0/task1_c.jpg>]
+File: Task1/priority_posc/rpy_45_45_0/5.jpg Graphic file (type jpg)
+<use Task1/priority_posc/rpy_45_45_0/5.jpg>
+Package pdftex.def Info: Task1/priority_posc/rpy_45_45_0/5.jpg  used on input l
+ine 198.
+(pdftex.def)             Requested size: 266.14978pt x 199.60693pt.
+File: Task1/priority_posc/rpy_45_45_0/task1_posc_c.jpg Graphic file (type jpg)
+<use Task1/priority_posc/rpy_45_45_0/task1_posc_c.jpg>
+Package pdftex.def Info: Task1/priority_posc/rpy_45_45_0/task1_posc_c.jpg  used
+ on input line 199.
+(pdftex.def)             Requested size: 172.99533pt x 178.35408pt.
+<Task1/priority_posc_ha_switch/rpy_45_45_0/5.jpg, id=36, 1405.25pt x 1053.9375p
+t>
+File: Task1/priority_posc_ha_switch/rpy_45_45_0/5.jpg Graphic file (type jpg)
+<use Task1/priority_posc_ha_switch/rpy_45_45_0/5.jpg>
+Package pdftex.def Info: Task1/priority_posc_ha_switch/rpy_45_45_0/5.jpg  used 
+on input line 200.
+(pdftex.def)             Requested size: 266.14978pt x 199.60693pt.
+<Task1/priority_posc_ha_switch/rpy_45_45_0/task1_posc_c.jpg, id=37, 324.31163pt
+ x 389.35463pt>
+File: Task1/priority_posc_ha_switch/rpy_45_45_0/task1_posc_c.jpg Graphic file (
+type jpg)
+<use Task1/priority_posc_ha_switch/rpy_45_45_0/task1_posc_c.jpg>
+Package pdftex.def Info: Task1/priority_posc_ha_switch/rpy_45_45_0/task1_posc_c
+.jpg  used on input line 201.
+(pdftex.def)             Requested size: 155.25517pt x 186.39499pt.
+ [4 <./Task1/priority_posc_ha_switch/rpy_45_45_0/5.jpg> <./Task1/priority_posc_
+ha_switch/rpy_45_45_0/task1_posc_c.jpg>] [5] [6
 
 ] [7
 
 ] [8
 
-] (cooperative.aux) ) 
+] [9
+
+] [10
+
+] (cooperative.aux)
+
+LaTeX Warning: There were multiply-defined labels.
+
+ ) 
 Here is how much of TeX's memory you used:
- 4085 strings out of 492946
- 62252 string characters out of 3123600
- 138265 words of memory out of 3000000
- 7890 multiletter control sequences out of 15000+200000
- 10764 words of font info for 40 fonts, out of 3000000 for 9000
+ 4158 strings out of 492946
+ 65116 string characters out of 3123600
+ 138323 words of memory out of 3000000
+ 7936 multiletter control sequences out of 15000+200000
+ 11063 words of font info for 41 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 42i,9n,38p,447b,264s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Users/Astha Gupta/AppData/Local/Programs/MiKTeX 2.9/fo
-nts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/Astha Gupta/AppData/Local/Pro
-grams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/Astha Gupt
-a/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmcsc10.pfb>
+ 42i,10n,49p,447b,347s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Users/Astha Gupta/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/am
+sfonts/cm/cmbx10.pfb><C:/Users/Astha Gupta/AppData/Local/Programs/MiKTeX 2.9/fo
+nts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/Astha Gupta/AppData/Local/Pro
+grams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Users/Astha Gup
+ta/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb>
 <C:/Users/Astha Gupta/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsf
-onts/cm/cmex10.pfb><C:/Users/Astha Gupta/AppData/Local/Programs/MiKTeX 2.9/font
-s/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Astha Gupta/AppData/Local/Progr
-ams/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/Astha Gupta/A
-ppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmib10.pfb><C:
-/Users/Astha Gupta/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfont
-s/cm/cmr10.pfb><C:/Users/Astha Gupta/AppData/Local/Programs/MiKTeX 2.9/fonts/ty
-pe1/public/amsfonts/cm/cmr7.pfb><C:/Users/Astha Gupta/AppData/Local/Programs/Mi
-KTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Astha Gupta/AppDat
-a/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/
-Astha Gupta/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cm
-tt10.pfb><C:/Users/Astha Gupta/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pu
-blic/amsfonts/symbols/msam10.pfb><C:/Users/Astha Gupta/AppData/Local/Programs/M
-iKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on cooperative.pdf (9 pages, 176462 bytes).
+onts/cm/cmmi10.pfb><C:/Users/Astha Gupta/AppData/Local/Programs/MiKTeX 2.9/font
+s/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/Astha Gupta/AppData/Local/Progra
+ms/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmib10.pfb><C:/Users/Astha Gupta/
+AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/
+Users/Astha Gupta/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts
+/cm/cmr7.pfb><C:/Users/Astha Gupta/AppData/Local/Programs/MiKTeX 2.9/fonts/type
+1/public/amsfonts/cm/cmr8.pfb><C:/Users/Astha Gupta/AppData/Local/Programs/MiKT
+eX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Astha Gupta/AppData/
+Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/As
+tha Gupta/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt
+10.pfb><C:/Users/Astha Gupta/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/publ
+ic/amsfonts/symbols/msam10.pfb><C:/Users/Astha Gupta/AppData/Local/Programs/MiK
+TeX 2.9/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on cooperative.pdf (11 pages, 1348532 bytes).
 PDF statistics:
- 88 PDF objects out of 1000 (max. 8388607)
+ 108 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 51 words of extra memory for PDF output out of 10000 (max. 10000000)
 

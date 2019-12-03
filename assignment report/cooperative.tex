@@ -161,11 +161,59 @@ Goal: Implement a vehicle position control task, and test that the vehicle reach
 
 \subsubsection{Q2: What is the behaviour if the Horizontal Attitude is enabled or not? Try changing the initial or target orientation in terms of roll and pitch angles. Discuss the behaviour.}
 
+To understand the difference between behaviour, we conducted  4 runs of the simulation using different parameters as stated below. 
 
+\begin{itemize}
+	\item Default priority (dp): $ \left[ "ha", "posc", "mu", "t" \right]$ 
+	\item Horizontal priority off (haOff):  $ \left[ "posc", "mu", "t" \right]$ 
+	\item Target default (tdef): $ \left[10.5, 37.5, -38, 0, 0, 0 \right]$ 
+	\item Target new (tnew): $ \left[10.5, 37.5, -38, degtorad(45), degtorad(45), 0 \right]$  
+\end{itemize}
+
+\begin{figure}[!h]
+\subfloat[(dp,tdef)\label{fig:1a}]{\includegraphics[width=.6\linewidth]{Task1/priority_posc/init_rpy/5}}\hfill
+\subfloat[(dp,tnew)\label{fig:1a}]{\includegraphics[width=.6\linewidth]{Task1/priority_posc/rpy_45_45_0/5}}\hfill
+\subfloat[(haOff,tdef)\label{fig:1a}]{\includegraphics[width=.6\linewidth]{Task1/priority_ha_off/init_rpy/5}}\hfill
+\subfloat[(haOff,tnew)\label{fig:1a}]{\includegraphics[width=.6\linewidth]{Task1/priority_ha_off/rpy_45_45_0/5}}\hfill
+\end{figure}
+
+
+\begin{figure}[!h]
+	\subfloat[(dp,tdef)\label{fig:1a}]{\includegraphics[width=.165\linewidth]{Task1/priority_posc/init_rpy/task1_posc_c}}\hfill
+	\subfloat[(dp,tnew)\label{fig:1a}]{\includegraphics[width=.190\linewidth]{Task1/priority_posc/rpy_45_45_0/task1_posc_c}}\hfill
+	\subfloat[(haOff,tdef)\label{fig:1a}]{\includegraphics[width=.2\linewidth]{Task1/priority_ha_off/init_rpy/task1_c}}\hfill
+	\subfloat[(haOff,tnew)\label{fig:1a}]{\includegraphics[width=.150\linewidth]{Task1/priority_ha_off/rpy_45_45_0/task1_c}}\\
+\end{figure}
+
+As we see that in the first case where the default priority is used the errors do not converge for the tnew position, as the position-control and horizontal altitude have conflicting goals. Since the "ha" has higher priority, the target is not achieved for the second case. 
+
+Were as the (c) and (d) part "ha" is off, thus the errors for vehicle-base converge to zero, but the robot is flipped in part (d). 
 
 \subsubsection{Q3: Swap the priorities between Horizontal Attitude and the Vehicle Position control task. Discuss the behaviour.}
 
+Since for target position tdef there is no substantial conflict of goals between "ha" and "posc", here we are omitting the graphs and instead focusing on results for tnew. 
+The switched priority is (haSwt):  $ \left[ "posc","ha", "mu", "t" \right]$ 
+
+\begin{figure}[!h]
+	\subfloat[(dp,tnew)\label{fig:1a}]{\includegraphics[width=.6\linewidth]{Task1/priority_posc/rpy_45_45_0/5}}\hfill
+	\subfloat[(dp,tnew)\label{fig:1a}]{\includegraphics[width=.390\linewidth]{Task1/priority_posc/rpy_45_45_0/task1_posc_c}}\hfill
+	\subfloat[(haSwt,tnew)\label{fig:1a}]{\includegraphics[width=.6\linewidth]{Task1/priority_posc_ha_switch/rpy_45_45_0/5}}\hfill
+	\subfloat[(haSwt,tnew)\label{fig:1a}]{\includegraphics[width=.350\linewidth]{Task1/priority_posc_ha_switch/rpy_45_45_0/task1_posc_c}}\\
+\end{figure}
+
+As expected in the case of default priority the "ha" takes precedence and hence the vehicle is not able to achieve a zero error for "posc". Whereas in the switched proprity case the errors for position goes to zero, but the vehicle is flipped. 
+
 \subsubsection{Q4: What is the behaviour if the Tool Position control task is active and what if it is disabled? Which of the settings should be used for a Safe Waypoint Navigation action?}
+
+The behaviour of the robot with respect to achieving required pose is the same. The activation for, joint velocity remains 0 and there is no change in configuration of joints. Although there is no impact of Tool position control on vehicle position control in our case, it should be disabled for safe waypoint nagivation to avoid possible colision and any other unanticipated behaviour.
+
+%\begin{figure}[!h]
+%	\subfloat[(dp,tdef)\label{fig:1a}]{\includegraphics[width=.165\linewidth]{Task1/priority_posc/rpy_45_45_0/task1_posc_c}}\hfill
+%	\subfloat[(dp,tnew)\label{fig:1a}]{\includegraphics[width=.190\linewidth]{Task1/priority_posc/rpy_45_45_0/task1_posc_c}}\hfill
+%	\subfloat[(haOff,tdef)\label{fig:1a}]{\includegraphics[width=.2\linewidth]{Task1/priority_posc_ha_switch/rpy_45_45_0/task1_c}}\hfill
+%	\subfloat[(haOff,tnew)\label{fig:1a}]{\includegraphics[width=.150\linewidth]{Task1/priority_posc_ha_switch/rpy_45_45_0/task1_c}}\\
+%\end{figure}
+
 
 
 \subsection{Adding a safety minimum altitude control objective}

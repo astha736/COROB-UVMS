@@ -2,45 +2,81 @@
 \@writefile{toc}{\contentsline {section}{\numberline {1}Exercise 1: Implement a \IeC {\textquotedblleft }Safe Waypoint Navigation\IeC {\textquotedblright } Action.}{2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {1.1}Adding a vehicle position control objective}{2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {1.1.1}Q1: Report the hierarchy of task used and their priorities. What is the Jacobian relationship for the Vehicle Position control task? How was the task reference computed?}{2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.1.2}Q2: What is the behaviour if the Horizontal Attitude is enabled or not? Try changing the initial or target orientation in terms of roll and pitch angles. Discuss the behaviour.}{3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.1.3}Q3: Swap the priorities between Horizontal Attitude and the Vehicle Position control task. Discuss the behaviour.}{3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.1.4}Q4: What is the behaviour if the Tool Position control task is active and what if it is disabled? Which of the settings should be used for a Safe Waypoint Navigation action?}{3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.2}Adding a safety minimum altitude control objective}{3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.2.1}Q1: Report the hierarchy of task used and their priorities. Comment how you choose the priority level for the minimum altitude.}{3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.2.2}Q2: What is the Jacobian relationship for the Minimum Altitude control task? How was the task reference computed?}{3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.2.3}Q3: Try imposing a minimum altitude of 1, 5, 10 m respectively. What is the behaviour?}{3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.2.4}Q4: How was the sensor distance processed?}{3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2}Exercise 2: Implement a Basic \IeC {\textquotedblleft }Landing\IeC {\textquotedblright } Action.}{4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Adding an altitude control objective}{4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.1}Q1: Report the hierarchy of task used and their priorities. Comment how you choose the priority level for the altitude control task.}{4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.2}Q2: What is the Jacobian relationship for the Altitude control task? How was the task reference computed?}{4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.3}Q3: how does this task differs from a minimum altitude control task?}{4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Adding mission phases and change of action}{4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.1}Q1: Report the unified hierarchy of tasks used and their priorities.}{4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.2}Q2: How did you implement the transition from one action to the other?}{4}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {3}Exercise 3: Improve the \IeC {\textquotedblleft }Landing\IeC {\textquotedblright } Action}{5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Adding an alignment to target control objective}{5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.1}Q1: Report the unified hierarchy of tasks used and their priorities. Comment the behaviour.}{5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.2}Q2: What is the Jacobian relationship for the Alignment to Target control task? How was the task reference computed?}{5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.3}Q3: Try changing the gain of the alignment task. Try at least three different values, where one is very small. What is the observed behaviour?}{5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.4}Q4: After the landing is accomplished, what happens if you try to move the end-effector? Is the distance to the nodule sufficient to reach it with the end-effector? Comment the observed behaviour.}{5}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4}Exercise 4: Implementing a Fixed-base Manipulation Action}{6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Adding non-reactive tasks}{6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.1}Q1: Report the unified hierarchy of tasks used and their priorities. At which priority level did you add the constraint task?}{6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.2}Q2: What is the Jacobian relationship for the Vehicle Null Velocity task? How was the task reference computed?}{6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.3}Q3: Suppose the vehicle floating, i.e. not landed on the seafloor. What would happen, if due to currents, the vehicle moves?}{6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Adding a joint limit task}{6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.1}Q1: Report the unified hierarchy of tasks used and their priorities. At which priority level did you add the constraint task?}{6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.2}Q2: What is the Jacobian relationship for the Joint Limits task? How was the task reference computed?}{6}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5}Exercise 5: Floating Manipulation}{7}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Adding an optimization control objective}{7}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.1}Q1: Report the unified hierarchy of tasks used and their priorities. At which priority level did you add the optimization task?}{7}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.2}Q2: What is the Jacobian relationship for the Joint Preferred Shape task? How was the task reference computed?}{7}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.3}Q3: What is the difference between having or not having this objective?}{7}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Adding mission phases}{7}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.1}Q1: Report the unified hierarchy of tasks used and their priorities. Which task is active in which phase/action?}{7}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.2}Q2: What is the difference with the previous simulation (still in exercise 5), where only one action was used?}{7}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6}Exercise 6: Floating Manipulation with Arm-Vehicle Coordination Scheme}{8}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Adding the parallel arm-vehicle coordination scheme}{8}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {6.1.1}Q1: Which tasks did you introduce to implement the parallel coordination scheme?}{8}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {6.1.2}Q2: What happens if the sinusoidal disturbance becomes too big?}{8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.1.2}Q2: What is the behaviour if the Horizontal Attitude is enabled or not? Try changing the initial or target orientation in terms of roll and pitch angles. Discuss the behaviour.}{2}\protected@file@percent }
+\newlabel{fig:1a}{{1a}{3}}
+\newlabel{sub@fig:1a}{{(a)}{a}}
+\newlabel{fig:1a}{{1b}{3}}
+\newlabel{sub@fig:1a}{{(b)}{b}}
+\newlabel{fig:1a}{{1c}{3}}
+\newlabel{sub@fig:1a}{{(c)}{c}}
+\newlabel{fig:1a}{{1d}{3}}
+\newlabel{sub@fig:1a}{{(d)}{d}}
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {(dp,tdef)}}}{3}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {(dp,tnew)}}}{3}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {(haOff,tdef)}}}{3}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(d)}{\ignorespaces {(haOff,tnew)}}}{3}\protected@file@percent }
+\newlabel{fig:1a}{{1a}{3}}
+\newlabel{sub@fig:1a}{{(a)}{a}}
+\newlabel{fig:1a}{{1b}{3}}
+\newlabel{sub@fig:1a}{{(b)}{b}}
+\newlabel{fig:1a}{{1c}{3}}
+\newlabel{sub@fig:1a}{{(c)}{c}}
+\newlabel{fig:1a}{{1d}{3}}
+\newlabel{sub@fig:1a}{{(d)}{d}}
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {(dp,tdef)}}}{3}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {(dp,tnew)}}}{3}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {(haOff,tdef)}}}{3}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(d)}{\ignorespaces {(haOff,tnew)}}}{3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.1.3}Q3: Swap the priorities between Horizontal Attitude and the Vehicle Position control task. Discuss the behaviour.}{4}\protected@file@percent }
+\newlabel{fig:1a}{{1a}{4}}
+\newlabel{sub@fig:1a}{{(a)}{a}}
+\newlabel{fig:1a}{{1b}{4}}
+\newlabel{sub@fig:1a}{{(b)}{b}}
+\newlabel{fig:1a}{{1c}{4}}
+\newlabel{sub@fig:1a}{{(c)}{c}}
+\newlabel{fig:1a}{{1d}{4}}
+\newlabel{sub@fig:1a}{{(d)}{d}}
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(a)}{\ignorespaces {(dp,tnew)}}}{4}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(b)}{\ignorespaces {(dp,tnew)}}}{4}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(c)}{\ignorespaces {(haSwt,tnew)}}}{4}\protected@file@percent }
+\@writefile{lof}{\contentsline {subfigure}{\numberline{(d)}{\ignorespaces {(haSwt,tnew)}}}{4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.1.4}Q4: What is the behaviour if the Tool Position control task is active and what if it is disabled? Which of the settings should be used for a Safe Waypoint Navigation action?}{5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.2}Adding a safety minimum altitude control objective}{5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.2.1}Q1: Report the hierarchy of task used and their priorities. Comment how you choose the priority level for the minimum altitude.}{5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.2.2}Q2: What is the Jacobian relationship for the Minimum Altitude control task? How was the task reference computed?}{5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.2.3}Q3: Try imposing a minimum altitude of 1, 5, 10 m respectively. What is the behaviour?}{5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.2.4}Q4: How was the sensor distance processed?}{5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2}Exercise 2: Implement a Basic \IeC {\textquotedblleft }Landing\IeC {\textquotedblright } Action.}{6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Adding an altitude control objective}{6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.1}Q1: Report the hierarchy of task used and their priorities. Comment how you choose the priority level for the altitude control task.}{6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.2}Q2: What is the Jacobian relationship for the Altitude control task? How was the task reference computed?}{6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.3}Q3: how does this task differs from a minimum altitude control task?}{6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Adding mission phases and change of action}{6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.1}Q1: Report the unified hierarchy of tasks used and their priorities.}{6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.2}Q2: How did you implement the transition from one action to the other?}{6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3}Exercise 3: Improve the \IeC {\textquotedblleft }Landing\IeC {\textquotedblright } Action}{7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Adding an alignment to target control objective}{7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.1}Q1: Report the unified hierarchy of tasks used and their priorities. Comment the behaviour.}{7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.2}Q2: What is the Jacobian relationship for the Alignment to Target control task? How was the task reference computed?}{7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.3}Q3: Try changing the gain of the alignment task. Try at least three different values, where one is very small. What is the observed behaviour?}{7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.4}Q4: After the landing is accomplished, what happens if you try to move the end-effector? Is the distance to the nodule sufficient to reach it with the end-effector? Comment the observed behaviour.}{7}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4}Exercise 4: Implementing a Fixed-base Manipulation Action}{8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Adding non-reactive tasks}{8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.1}Q1: Report the unified hierarchy of tasks used and their priorities. At which priority level did you add the constraint task?}{8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.2}Q2: What is the Jacobian relationship for the Vehicle Null Velocity task? How was the task reference computed?}{8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.3}Q3: Suppose the vehicle floating, i.e. not landed on the seafloor. What would happen, if due to currents, the vehicle moves?}{8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Adding a joint limit task}{8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.1}Q1: Report the unified hierarchy of tasks used and their priorities. At which priority level did you add the constraint task?}{8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.2}Q2: What is the Jacobian relationship for the Joint Limits task? How was the task reference computed?}{8}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5}Exercise 5: Floating Manipulation}{9}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Adding an optimization control objective}{9}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.1}Q1: Report the unified hierarchy of tasks used and their priorities. At which priority level did you add the optimization task?}{9}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.2}Q2: What is the Jacobian relationship for the Joint Preferred Shape task? How was the task reference computed?}{9}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.3}Q3: What is the difference between having or not having this objective?}{9}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Adding mission phases}{9}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.1}Q1: Report the unified hierarchy of tasks used and their priorities. Which task is active in which phase/action?}{9}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.2}Q2: What is the difference with the previous simulation (still in exercise 5), where only one action was used?}{9}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6}Exercise 6: Floating Manipulation with Arm-Vehicle Coordination Scheme}{10}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Adding the parallel arm-vehicle coordination scheme}{10}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {6.1.1}Q1: Which tasks did you introduce to implement the parallel coordination scheme?}{10}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {6.1.2}Q2: What happens if the sinusoidal disturbance becomes too big?}{10}\protected@file@percent }
