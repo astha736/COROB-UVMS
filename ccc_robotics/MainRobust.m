@@ -52,6 +52,7 @@ uvms.q = [-0.0031 0 0.0128 -1.2460 0.0137 0.0853-pi/2 0.0137]';
 % R(rot_x, rot_y, rot_z) = Rz (rot_z) * Ry(rot_y) * Rx(rot_x)
 %uvms.p = [8.5 38.5 -38   0 -0.06 0.5]'; 
 uvms.p = [48.5 11.5 -33 0 0 -pi/2]';
+%uvms.p = [10.5 35.5 -36 0 0  pi/2]';
 
 % defines the goal position for the end-effector/tool position task
 uvms.goalPosition = [12.2025   37.3748  -39.8860]';
@@ -59,13 +60,17 @@ uvms.wRg = rotation(0, pi, pi/2);
 uvms.wTg = [uvms.wRg uvms.goalPosition; 0 0 0 1];
 
 % position-control goal Position
-%uvms.gpos = [10.5 37.5 -38 degtorad(45) degtorad(45) 0]';
+% uvms.gpos = [10.5 37.5 -38 degtorad(45) degtorad(45) 0]';
+%uvms.gpos = [10.5 37.5 -38 0 0 0]';
 uvms.gpos = [50 12.5 -53 0 0 -pi/2]'; 
 wRgpos = rotation(uvms.gpos(4),uvms.gpos(5),uvms.gpos(6));
 uvms.wTgpos = [wRgpos uvms.gpos(1:3); 0 0 0 1];
 
 % defines the tool control point
 uvms.eTt = eye(4);
+
+% added to avoid initial jump
+uvms = ReceiveUdpPackets(uvms, uAltitude);
 
 tic
 for t = 0:deltat:end_time
@@ -79,7 +84,7 @@ for t = 0:deltat:end_time
     uvms = ReceiveUdpPackets(uvms, uAltitude);
     
     disp('vehicle-velocity');
-    disp(uvms.p);
+    disp(uvms.p_dot);
     
     % main kinematic algorithm initialization
     % rhop order is [qdot_1, qdot_2, ..., qdot_7, xdot, ydot, zdot, omega_x, omega_y, omega_z]
@@ -96,7 +101,7 @@ for t = 0:deltat:end_time
     [Qp, rhop] = iCAT_task(uvms.A.posc, uvms.Jposc, Qp, rhop, uvms.xdot.posc, 0.0001, 0.01, 10);
     
     [Qp, rhop] = iCAT_task(uvms.A.mu,   uvms.Jmu,   Qp, rhop, uvms.xdot.mu, 0.000001, 0.0001, 10);
-    [Qp, rhop] = iCAT_task(uvms.A.t,    uvms.Jt,    Qp, rhop, uvms.xdot.t,  0.0001,   0.01, 10);
+    %[Qp, rhop] = iCAT_task(uvms.A.t,    uvms.Jt,    Qp, rhop, uvms.xdot.t,  0.0001,   0.01, 10);
     [Qp, rhop] = iCAT_task(eye(13),     eye(13),    Qp, rhop, zeros(13,1),  0.0001,   0.01, 10);    % this task should be the last one
     
     % get the two variables for integration

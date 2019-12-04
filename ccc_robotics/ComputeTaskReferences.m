@@ -24,5 +24,8 @@ uvms.totalError = [lin;ang]; %6x1
 % call the sensor data to check the actual distance of the base from
 % the sea floor
 % fill this up correctly
-mac_velocity_upwards = 0.2*(uvms.mac.thresh - uvms.sensorDistance);
+% check if the projections are correct 
+temp = uvms.wTv*[0,0,uvms.sensorDistance,0]';
+uvms.mac.wdispf = temp(3);
+mac_velocity_upwards = 0.2*(uvms.mac.thresh + uvms.mac.buff - uvms.mac.wdispf);
 uvms.xdot.mac = [0, 0,mac_velocity_upwards,0,0,0 ]';

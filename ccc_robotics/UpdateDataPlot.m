@@ -26,10 +26,14 @@ plt.xdot_t(:, loop) =  blkdiag(uvms.wTv(1:3,1:3), uvms.wTv(1:3,1:3))*uvms.xdot.t
 plt.a(1:7, loop) = diag(uvms.A.jl);
 plt.a(8, loop) = uvms.A.mu;
 plt.a(9, loop) = uvms.A.ha(1,1);
+plt.a(10,loop) = uvms.A.mac(3,3);
 
 plt.toolFrameError(:, loop) = uvms.toolFrameError;
 plt.totalError(:, loop) = uvms.totalError;
 
 plt.toolx(:,loop) = uvms.wTt(1,4);
 plt.tooly(:,loop) = uvms.wTt(2,4);
+
+% distance of the vehicle from the sea floor (z projection(w) of laser data)
+plt.distanceFloor(:,loop) = uvms.mac.wdispf;
 end

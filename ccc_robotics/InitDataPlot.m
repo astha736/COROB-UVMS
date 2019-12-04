@@ -22,5 +22,8 @@ function [plt] = InitDataPlot( maxloops)
     plt.virtualFrameError = zeros(6, maxloops);
     plt.toolFrameError = zeros(6, maxloops);
     plt.totalError = zeros(6, maxloops);
+    
+
+    plt.distanceFloor = zeros(1, maxloops);
 end
 

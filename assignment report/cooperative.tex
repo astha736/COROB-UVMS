@@ -207,14 +207,6 @@ As expected in the case of default priority the "ha" takes precedence and hence 
 
 The behaviour of the robot with respect to achieving required pose is the same. The activation for, joint velocity remains 0 and there is no change in configuration of joints. Although there is no impact of Tool position control on vehicle position control in our case, it should be disabled for safe waypoint nagivation to avoid possible colision and any other unanticipated behaviour.
 
-%\begin{figure}[!h]
-%	\subfloat[(dp,tdef)\label{fig:1a}]{\includegraphics[width=.165\linewidth]{Task1/priority_posc/rpy_45_45_0/task1_posc_c}}\hfill
-%	\subfloat[(dp,tnew)\label{fig:1a}]{\includegraphics[width=.190\linewidth]{Task1/priority_posc/rpy_45_45_0/task1_posc_c}}\hfill
-%	\subfloat[(haOff,tdef)\label{fig:1a}]{\includegraphics[width=.2\linewidth]{Task1/priority_posc_ha_switch/rpy_45_45_0/task1_c}}\hfill
-%	\subfloat[(haOff,tnew)\label{fig:1a}]{\includegraphics[width=.150\linewidth]{Task1/priority_posc_ha_switch/rpy_45_45_0/task1_c}}\\
-%\end{figure}
-
-
 
 \subsection{Adding a safety minimum altitude control objective}
 Initialize the vehicle at the position:
@@ -231,11 +223,48 @@ Goal: Implement a task to control the altitude from the seafloor. Check that at 
 
 \subsubsection{Q1: Report the hierarchy of task used and their priorities. Comment how you choose the priority level for the minimum altitude.}
 
+The hierarchy used is given below. Since the Minimum Altitude is a safety feature so that the vehicle does not crash into the sea floor, thus it has been given the highest priority. 
+
+\begin{enumerate}
+	\item "mac": Minimum Altitude Control
+	\item "ha": Horizontal Altitude
+	\item "posc": Vehicle Position Control 
+	\item "mu": Manipulability
+	\item "t": Tool Position Control	
+\end{enumerate}
+
+
 \subsubsection{Q2: What is the Jacobian relationship for the Minimum Altitude control task? How was the task reference computed?}
+
+The Jacobian "Jmac" is given as below:  
+\begin{equation}
+\left[\begin{array}{c}{^{w}\dot{v}_{3 \times 1}} \\ ^{w}{\omega}_{3 \times 1}\end{array}\right]=\left[\begin{array}{ccc}{\mathbf{0}_{3 \times 7}} & {^{w}\boldsymbol{R}_{v}}& {\mathbf{0}_{3 \times 3}} \\ {\mathbf{0}_{3 \times 7}} & {\mathbf{0}_{3 \times 3}} & {\mathbf{0}_{3 \times 3}}\end{array}\right]\left[\begin{array}{c}{\dot{q}_{7 \times 1}} \\ ^{b}{v}_{3 \times 1} \\ ^{b}{\omega}_{3 \times 1}\end{array}\right]
+\end{equation}
+
+The reference velocity is given by 
+\begin{displaymath}
+\begin{bmatrix} 0 & 0 & {v}_z & 0 & 0 & 0 \end{bmatrix}^\top
+\end{displaymath}
+
+%\begin{equation}
+%$^{w}\dot{\boldsymbol{v}_{z}=\lambda \left[\begin{array}{c}{ minimum threshold - sensor distance  }\end{array} \right]$
+%\end{equation}
+
+\begin{equation}
+{\boldsymbol{v}}_{z}=\lambda \left[ minimum.threshold - floor.distance \right]
+\end{equation}
+
+
+where sensor distance is the distance from sea floor given by the sensors on the vehicle.
+
+
+
 
 \subsubsection{Q3: Try imposing a minimum altitude of 1, 5, 10 m respectively. What is the behaviour?}
 
 \subsubsection{Q4: How was the sensor distance processed?}
+
+The distance given by the sensor of the vehicle is in the z direction of the body frame. As the body frame's z axis may not be parallel to the world frame's z axis, thus the displacement vector (with only z component) was projected to the world frame. For our calculation we used only the z component of the projected vector as it would be the actual distance between the vehicle and the sea floor. 
 
 \clearpage
 
