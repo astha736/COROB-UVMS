@@ -24,5 +24,6 @@ uvms.A.posc = eye(6);
 % uvms.mac.thresh
 % norm(uvms.p(3)
 % buff = 0.2;
-uvms.A.mac(3,3) = DecreasingBellShapedFunction(uvms.mac.thresh ,uvms.mac.thresh + uvms.mac.buff, 0, 1, uvms.sensorDistance);
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% we need to change the activation uvms.mac.wdispf
+uvms.A.mac(3,3) = DecreasingBellShapedFunction(uvms.mac.thresh ,uvms.mac.thresh + uvms.mac.buff, 0, 1, uvms.mac.wdispf);
+uvms.A.la(3,3) = 1; %IncreasingBellShapedFunction(0.00, 0.1, 0, 1, uvms.mac.wdispf); 

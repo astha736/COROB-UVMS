@@ -57,4 +57,7 @@ uvms.Jposc = [zeros(3,7) wRv zeros(3,3);zeros(3,7) zeros(3,3) wRv];
 % Minimum Altitude Control from sea floor 
 uvms.Jmac = [zeros(3,7) wRv zeros(3,3);zeros(3,7) zeros(3,3) zeros(3,3)];
 
+% landing objective
+uvms.Jla = [zeros(3,7) wRv zeros(3,3);zeros(3,7) zeros(3,3) zeros(3,3)];
+
 end

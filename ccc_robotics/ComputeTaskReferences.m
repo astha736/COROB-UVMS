@@ -29,3 +29,7 @@ temp = uvms.wTv*[0,0,uvms.sensorDistance,0]';
 uvms.mac.wdispf = temp(3);
 mac_velocity_upwards = 0.2*(uvms.mac.thresh + uvms.mac.buff - uvms.mac.wdispf);
 uvms.xdot.mac = [0, 0,mac_velocity_upwards,0,0,0 ]';
+
+% landing objective
+la_velocity_downwards = -0.2*uvms.mac.wdispf;
+uvms.xdot.la = [0, 0,la_velocity_downwards,0,0,0 ]';
