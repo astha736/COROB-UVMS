@@ -83,7 +83,7 @@ uvms.A.la = zeros(6,6); % landing objective
 uvms.toolFrameError = zeros(6,1);
 uvms.totalError = zeros(6,1);
 
-uvms.mac.thresh = 5;
+uvms.mac.thresh = 1;
 uvms.mac.buff = 1;
 uvms.mac.wdispf = 0;
 end

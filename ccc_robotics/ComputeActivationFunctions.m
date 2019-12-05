@@ -21,9 +21,12 @@ uvms.A.t = eye(6);
 % Position-control for base
 % always active
 uvms.A.posc = eye(6);
+uvms.A.posc = mission.ea.poc .* uvms.A.posc;
 % uvms.mac.thresh
 % norm(uvms.p(3)
 % buff = 0.2;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% we need to change the activation uvms.mac.wdispf
 uvms.A.mac(3,3) = DecreasingBellShapedFunction(uvms.mac.thresh ,uvms.mac.thresh + uvms.mac.buff, 0, 1, uvms.mac.wdispf);
+uvms.A.mac = uvms.A.mac.*mission.ea.mac;
 uvms.A.la(3,3) = 1; %IncreasingBellShapedFunction(0.00, 0.1, 0, 1, uvms.mac.wdispf); 
+uvms.A.la = mission.ea.la.*uvms.A.la;
