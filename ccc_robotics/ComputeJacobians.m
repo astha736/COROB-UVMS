@@ -60,4 +60,8 @@ uvms.Jmac = [zeros(3,7) wRv zeros(3,3);zeros(3,7) zeros(3,3) zeros(3,3)];
 % landing objective
 uvms.Jla = [zeros(3,7) wRv zeros(3,3);zeros(3,7) zeros(3,3) zeros(3,3)];
 
+%miss 
+
+%uvms.Jat = [zeros(3,7) zeros(3,3) zeros(3,3);zeros(3,7) zeros(3,3) ones(3,3)];
+
 end
