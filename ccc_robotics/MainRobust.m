@@ -53,7 +53,7 @@ uvms.q = [-0.0031 0 0.0128 -1.2460 0.0137 0.0853-pi/2 0.0137]';
 % RPY angles are applied in the following sequence
 % R(rot_x, rot_y, rot_z) = Rz (rot_z) * Ry(rot_y) * Rx(rot_x)
 %uvms.p = [8.5 38.5 -38   0 -0.06 0.5]'; 
-uvms.p = [48.5 11.5 -33 0 0 -pi/2]'; % mac task
+%uvms.p = [48.5 11.5 -33 0 0 -pi/2]'; % mac task
 %uvms.p = [10.5 35.5 -36 0 0  pi/2]';
 %uvms.p = [10.5 37.5 -38 0 -0.06 0.5]';
 uvms.p = [8.5 38.5 -36   0 -0.06 0.5]'; % init p task 2.2
@@ -73,6 +73,8 @@ uvms.wTgpos = [wRgpos uvms.gpos(1:3); 0 0 0 1];
 
 % defines the tool control point
 uvms.eTt = eye(4);
+
+
 
 
 % SendUdpPackets(uvms,wuRw,vRvu,uArm,uVehicle);
@@ -102,6 +104,9 @@ for t = 0:deltat:end_time
     % task (activation -> only gets activated when base is close to the floor)
     % velocity -> upward velocity prop to error between the minimun
     % (distance - actual distance )
+    disp(uvms.A.at);
+    disp(uvms.Jat);
+    [Qp, rhop] = iCAT_task(uvms.A.at,   uvms.Jat,   Qp, rhop, uvms.xdot.at, 0.0001,   0.01, 10);
     [Qp, rhop] = iCAT_task(uvms.A.la,   uvms.Jla,   Qp, rhop, uvms.xdot.la, 0.0001,   0.01, 10);
     % jacobian will be the same as position control
     [Qp, rhop] = iCAT_task(uvms.A.mac,   uvms.Jmac,   Qp, rhop, uvms.xdot.mac, 0.0001,   0.01, 10);
@@ -149,7 +154,7 @@ for t = 0:deltat:end_time
     end
     % enable this to have the simulation approximately evolving like real
     % time. Remove to go as fast as possible
-    SlowdownToRealtime(deltat);
+%     SlowdownToRealtime(deltat);
 end
 
 fclose(uVehicle);

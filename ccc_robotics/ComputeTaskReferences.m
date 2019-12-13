@@ -17,9 +17,11 @@ uvms.xdot.ha = -0.1 * norm(uvms.phi);
 
 % position-control reference for vehicle-frame
 % doubt do we need to saturate them? - or do we add a task?
-[ang_v, lin_v] = CartError(uvms.wTgpos, uvms.wTv);
-uvms.xdot.posc = 0.2*[lin_v; ang_v]; %6x1 vector
-uvms.totalError = [lin_v;ang_v]; %6x1
+uvms.linErrorVehicle = zeros(3,1);
+uvms.angErrorVehicle = zeros(3,1);
+[uvms.angErrorVehicle, uvms.linErrorVehicle] = CartError(uvms.wTgpos, uvms.wTv);
+uvms.xdot.posc = 0.2*[uvms.linErrorVehicle; uvms.angErrorVehicle]; %6x1 vector
+uvms.totalError = [uvms.linErrorVehicle;uvms.angErrorVehicle]; %6x1
 
 % call the sensor data to check the actual distance of the base from
 % the sea floor
@@ -36,11 +38,14 @@ uvms.xdot.la = [0, 0,la_velocity_downwards,0,0,0 ]';
 
 % misalignemnt objective 
 horz_proj = [1,0,0;0,1,0;0,0,0];
-lin_v_proj = uvms.vTw(1:3,1:3)*horz_proj*lin_v; % vRw * hori_plane * distance_w
-vellin_v_proj = uvms.vTw(1:3,1:3)*horz_proj*uvms.wTv(1:3,1:3)*uvms.p_dot(1:3);
+lin_v_proj = uvms.vTw(1:3,1:3)*horz_proj*uvms.linErrorVehicle;
 norm_r = norm(lin_v_proj);
-norm_v = norm(vellin_v_proj);
-v_w_bw =  crosss(lin_v_proj/norm_r,vellin_v_proj/norm_v)*(norm_v/norm_r);
+rho_dir =cross([1,0,0]',lin_v_proj/norm_r) ; % axb of the unit vectors 
+theta = asin(norm(rho_dir)); % get the theta value 
+rho = rho_dir*theta; % rho = n*theta
+uvms.xdot.at = rho*0.2;
+
+
 
 
 

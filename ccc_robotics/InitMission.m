@@ -8,6 +8,7 @@ mission.ea.ha = eye(6);
 mission.ea.poc = eye(6);
 mission.ea.mac = eye(6,6);
 mission.ea.la = zeros(6,6);
+mission.ea.at = zeros(3,3);
 
 end
 

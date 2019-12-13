@@ -30,3 +30,5 @@ uvms.A.mac(3,3) = DecreasingBellShapedFunction(uvms.mac.thresh ,uvms.mac.thresh 
 uvms.A.mac = uvms.A.mac.*mission.ea.mac;
 uvms.A.la(3,3) = 1; %IncreasingBellShapedFunction(0.00, 0.1, 0, 1, uvms.mac.wdispf); 
 uvms.A.la = mission.ea.la.*uvms.A.la;
+uvms.A.at = eye(3);%
+uvms.A.at = mission.ea.at.*uvms.A.at;

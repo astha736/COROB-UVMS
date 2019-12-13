@@ -57,6 +57,7 @@ uvms.Jca = [];
 uvms.Jposc = []; % position-control Jacobian
 uvms.Jmac = []; % minimum altitude control 
 uvms.Jla = []; % landing objective
+uvms.Jat = []; % misalignmnet objective 
     
 uvms.xdot.jl = [];
 uvms.xdot.mu = [];
@@ -68,6 +69,7 @@ uvms.xdot.ca = [];
 uvms.xdot.posc = []; % position-control Refrence velocity
 uvms.xdot.mac = []; % minimum altitude control 
 uvms.xdot.la = []; % landing objective
+uvms.xdot.at = []; % misalignmnet objective 
     
 uvms.A.jl = zeros(7,7);
 uvms.A.mu = 0;
@@ -79,9 +81,12 @@ uvms.A.ca = zeros(3,3);
 uvms.A.posc = zeros(6,6);% position-control Activation
 uvms.A.mac = zeros(6,6); % minimum altitude control 
 uvms.A.la = zeros(6,6); % landing objective
+uvms.A.at = zeros(3,3); % misalignmnet objective 
 
 uvms.toolFrameError = zeros(6,1);
 uvms.totalError = zeros(6,1);
+uvms.linErrorVehicle = zeros(3,1);
+uvms.angErrorVehicle = zeros(3,1);
 
 uvms.mac.thresh = 1;
 uvms.mac.buff = 1;

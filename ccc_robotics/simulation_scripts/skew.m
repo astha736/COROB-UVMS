@@ -8,11 +8,10 @@ function R = skew(w)
 % $Id: skew.m,v 1.1 2009-03-17 16:40:18 bradleyk Exp $
 % Copyright (C) 2005, by Brad Kratochvil
 
-  if 3 ~= size(w,1),
+  if 3 ~= size(w,1)
     error('SCREWS:skew','vector must be 3x1')
   end
-  
-  if isnumeric(w),
+  if ~isnumeric(w)
     R = zeros(3,3);
   end
   
