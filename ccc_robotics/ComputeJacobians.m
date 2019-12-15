@@ -1,4 +1,4 @@
-function [uvms] = ComputeJacobians(uvms)
+function [uvms] = ComputeJacobians(uvms,mission)
 % compute the relevant Jacobians here
 % joint limits
 % manipulability
@@ -61,29 +61,27 @@ uvms.Jmac = [zeros(3,7) wRv zeros(3,3);zeros(3,7) zeros(3,3) zeros(3,3)];
 uvms.Jla = [zeros(3,7) wRv zeros(3,3);zeros(3,7) zeros(3,3) zeros(3,3)];
 
 
-% misalignemnt objective 
-horz_proj = [1,0,0;0,1,0;0,0,0];
-lin_v_proj = uvms.vTw(1:3,1:3)*horz_proj*uvms.linErrorVehicle; % vRw * hori_plane * distance_w
+% misalignemnt objective
+k = [0,0,1]';
+horz_proj = eye(3) - k*k'; % projection in horizontal plane (for a vector expressed in world frame)
+
+distance_rock = uvms.p(1:3,1) - mission.rock_center; % uvms.vTw(1:3,1:3)*horz_proj*distance_rock;
+uvms.dist_rock_proj = uvms.vTw(1:3,1:3)*horz_proj*distance_rock;
+
 v_HorProj_v = uvms.vTw(1:3,1:3)*horz_proj*uvms.wTv(1:3,1:3);% vRw * hori_plane * wRv  %*uvms.p_dot(1:3);
-norm_r = norm(lin_v_proj);
-%norm_v = norm(vellin_v_proj);
-disp('lin_v_proj');
-disp(lin_v_proj);
-disp(isnumeric(lin_v_proj));
-disp('lin_v_proj end');
-% disp('v_HorProj_v');
-% disp(v_HorProj_v);
-% disp('norm_r');
-% disp(norm_r);
+norm_r = norm(uvms.dist_rock_proj);
 if(norm_r == 0)
     Jat_1 = zeros(3,3);
 else
-    Jat_1 = (-1*skew(lin_v_proj)* v_HorProj_v)/(norm_r^2); % -1x(r_skew x Vp_v)*(1/norm(r))
+    Jat_1 = (-1*skew(uvms.dist_rock_proj)* v_HorProj_v)/(norm_r^2); % -1x(r_skew x Vp_v)*(1/norm(r))
 end 
-% disp('Jat_1');
-% disp(Jat_1);
+
 Jat_2 = -1*eye(3); 
 uvms.Jat = [zeros(3,7),Jat_1,Jat_2];
+
+%%%%%%%%%%%%%%%%%%%%%%% non-reactive task %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+uvms.Jnr = uvms.Jposc; 
+
 
 
 end

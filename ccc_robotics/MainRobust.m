@@ -6,7 +6,7 @@ close all
 
 % Simulation variables (integration and final time)
 deltat = 0.005;
-end_time = 50;
+end_time = 70;
 loop = 1;
 maxloops = ceil(end_time/deltat);
 
@@ -28,6 +28,7 @@ pipe_radius = 0.3;
 
 % rock position 
 rock_center = [12.2025   37.3748  -39.8860]'; % in world frame coordinates
+mission.rock_center  = rock_center;
 
 % UDP Connection with Unity viewer v2
 uArm = udp('127.0.0.1',15000,'OutputDatagramPacketSize',28);
@@ -81,11 +82,14 @@ uvms.eTt = eye(4);
 % % added to avoid initial jump
 % uvms = ReceiveUdpPackets(uvms, uAltitude);
 
+% check if the mission phase should be changed
+[uvms, mission] = UpdateMissionPhase(uvms, mission);
+    
 tic
 for t = 0:deltat:end_time
     % update all the involved variables
     uvms = UpdateTransforms(uvms);
-    uvms = ComputeJacobians(uvms);
+    uvms = ComputeJacobians(uvms,mission);
     uvms = ComputeTaskReferences(uvms, mission);
     uvms = ComputeActivationFunctions(uvms, mission);
     
@@ -104,18 +108,34 @@ for t = 0:deltat:end_time
     % task (activation -> only gets activated when base is close to the floor)
     % velocity -> upward velocity prop to error between the minimun
     % (distance - actual distance )
-    disp(uvms.A.at);
-    disp(uvms.Jat);
-    [Qp, rhop] = iCAT_task(uvms.A.at,   uvms.Jat,   Qp, rhop, uvms.xdot.at, 0.0001,   0.01, 10);
-    [Qp, rhop] = iCAT_task(uvms.A.la,   uvms.Jla,   Qp, rhop, uvms.xdot.la, 0.0001,   0.01, 10);
-    % jacobian will be the same as position control
+%     disp(uvms.A.at);
+%     disp(uvms.Jat);
+    
+    % the sequence of iCAT_task calls defines the priority 
+    
+    % non-reactive task
+    %[Qp, rhop] = iCAT_task(uvms.A.nr,   uvms.Jnr,   Qp, rhop, uvms.xdot.mac, 0.0001,   0.01, 10);
+    
+    % Minimum ALtitude Control
     [Qp, rhop] = iCAT_task(uvms.A.mac,   uvms.Jmac,   Qp, rhop, uvms.xdot.mac, 0.0001,   0.01, 10);
-    % the sequence of iCAT_task calls defines the priority
-    [Qp, rhop] = iCAT_task(uvms.A.ha,   uvms.Jha,   Qp, rhop, uvms.xdot.ha, 0.0001,   0.01, 10); 
+    
+    % Horizontal altitude - horizonntal balance  
+    [Qp, rhop] = iCAT_task(uvms.A.ha,   uvms.Jha,   Qp, rhop, uvms.xdot.ha, 0.0001,   0.01, 10);
+    
+    % landing 
+    [Qp, rhop] = iCAT_task(uvms.A.la,   uvms.Jla,   Qp, rhop, uvms.xdot.la, 0.0001,   0.01, 10);
+    
+    % Alignment to target 
+    [Qp, rhop] = iCAT_task(uvms.A.at,   uvms.Jat,   Qp, rhop, uvms.xdot.at, 0.0001,   0.01, 10);
+
     % Position-Control task
     [Qp, rhop] = iCAT_task(uvms.A.posc, uvms.Jposc, Qp, rhop, uvms.xdot.posc, 0.0001, 0.01, 10);
+    
+    
     [Qp, rhop] = iCAT_task(uvms.A.mu,   uvms.Jmu,   Qp, rhop, uvms.xdot.mu, 0.000001, 0.0001, 10);
-    %[Qp, rhop] = iCAT_task(uvms.A.t,    uvms.Jt,    Qp, rhop, uvms.xdot.t,  0.0001,   0.01, 10);
+    
+    [Qp, rhop] = iCAT_task(uvms.A.t,    uvms.Jt,    Qp, rhop, uvms.xdot.t,  0.0001,   0.01, 10);
+    
     [Qp, rhop] = iCAT_task(eye(13),     eye(13),    Qp, rhop, zeros(13,1),  0.0001,   0.01, 10);    % this task should be the last one
     
     % get the two variables for integration
@@ -144,14 +164,17 @@ for t = 0:deltat:end_time
 %         uvms.totalError
 %         abc = all(uvms.totalError) < 0.05
 %         mission.phase
-        uvms.mac.wdispf
-        uvms.xdot.la
+%         uvms.mac.wdispf
+%         uvms.xdot.la
         
     end
     
-    if(mission.phase ==0)
-        break;
-    end
+    disp('uvms.theta');
+    disp(uvms.theta);
+    
+%     if(mission.phase ==0)
+%         break;
+%     end
     % enable this to have the simulation approximately evolving like real
     % time. Remove to go as fast as possible
 %     SlowdownToRealtime(deltat);
