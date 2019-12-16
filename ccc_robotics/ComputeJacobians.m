@@ -50,41 +50,51 @@ else
 end
 uvms.Jha = [zeros(1,7) nphi'*[zeros(3) eye(3)]];
 
-% Position-control
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%% Position-Control for base %%%%%%%%%%%%%%%%%%%%%%%
 wRv = uvms.wTv(1:3,1:3); % world_Rotation_vehicle
 uvms.Jposc = [zeros(3,7) wRv zeros(3,3);zeros(3,7) zeros(3,3) wRv];
 
-% Minimum Altitude Control from sea floor 
+%%%%%%%%%%%%%%%%%%%%%%%% Minimum Altitude Control  %%%%%%%%%%%%%%%%%%%%%%%
 uvms.Jmac = [zeros(3,7) wRv zeros(3,3);zeros(3,7) zeros(3,3) zeros(3,3)];
 
-% landing objective
+%%%%%%%%%%%%%%%%%%%%%%%% Landing Objective %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 uvms.Jla = [zeros(3,7) wRv zeros(3,3);zeros(3,7) zeros(3,3) zeros(3,3)];
 
 
-% misalignemnt objective
+%%%%%%%%%%%%%%%%%%%%%%%% Misalignmnet Objective  %%%%%%%%%%%%%%%%%%%%%%%%%%
 k = [0,0,1]';
-horz_proj = eye(3) - k*k'; % projection in horizontal plane (for a vector expressed in world frame)
+% projection in horizontal plane (for a vector expressed in world frame)
+horz_proj = eye(3) - k*k'; 
 
-distance_rock = uvms.p(1:3,1) - mission.rock_center; % uvms.vTw(1:3,1:3)*horz_proj*distance_rock;
+% uvms.vTw(1:3,1:3)*horz_proj*distance_rock;
+distance_rock = uvms.p(1:3,1) - mission.rock_center; 
 uvms.dist_rock_proj = uvms.vTw(1:3,1:3)*horz_proj*distance_rock;
 
-v_HorProj_v = uvms.vTw(1:3,1:3)*horz_proj*uvms.wTv(1:3,1:3);% vRw * hori_plane * wRv  %*uvms.p_dot(1:3);
+% vRw * hori_plane * wRv  %*uvms.p_dot(1:3);
+v_HorProj_v = uvms.vTw(1:3,1:3)*horz_proj*uvms.wTv(1:3,1:3);
 norm_r = norm(uvms.dist_rock_proj);
 if(norm_r == 0)
     Jat_1 = zeros(3,3);
 else
-    Jat_1 = (-1*skew(uvms.dist_rock_proj)* v_HorProj_v)/(norm_r^2); % -1x(r_skew x Vp_v)*(1/norm(r))
+    % -1x(r_skew x Vp_v)*(1/norm(r))
+    Jat_1 = (-1*skew(uvms.dist_rock_proj)* v_HorProj_v)/(norm_r^2); 
 end 
 
 Jat_2 = -1*eye(3); 
 uvms.Jat = [zeros(3,7),Jat_1,Jat_2];
 
-%%%%%%%%%%%%%%%%%%%%%%% non-reactive task %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%%%%%%%%%%%%%%%%%%%%%%%%% Non-Reactive task %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 uvms.Jnr = [zeros(3,7) wRv zeros(3,3);zeros(3,7) zeros(3,3) wRv];
 
-%%%%%%%%%%%%%%%%%%%%%%% Joint limit task %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%% Joint-Limit task %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 uvms.Jjl = [eye(7),zeros(7,6)];
 
-
+%%%%%%%%%%%%%%%%%%%%%% Task 5.1 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%% Manipulator Position task 5.1  %%%%%%%%%%%%%%%%%%%%%
+uvms.Jmp = [eye(4),zeros(4,3),zeros(4,6)];
 
 end

@@ -28,18 +28,6 @@ plt.a(8, loop) = uvms.A.mu;
 plt.a(9, loop) = uvms.A.ha(1,1);
 plt.a(10,loop) = uvms.A.mac(3,3);
 
-
-% 
-% plt.ea(1,loop) = 
-
-% mission.ea.mu = 1;
-% mission.ea.t = zeros(6,6);
-% mission.ea.ha = 1;
-% mission.ea.poc = zeros(6,6);
-% mission.ea.mac = eye(6,6);
-% mission.ea.la = zeros(6,6);
-% mission.ea.at = zeros(3,3);
-% mission.ea.nr = zeros(6,6);
 plt.toolFrameError(:, loop) = uvms.toolFrameError;
 plt.totalError(:, loop) = uvms.totalError;
 

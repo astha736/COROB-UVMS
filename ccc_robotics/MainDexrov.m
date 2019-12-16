@@ -10,9 +10,6 @@ end_time = 15;
 loop = 1;
 maxloops = ceil(end_time/deltat);
 
-% this struct can be used to evolve what the UVMS has to do
-mission.phase = 1;
-mission.phase_time = 0;
 
 % Rotation matrix to convert coordinates between Unity and the <w> frame
 % do not change
@@ -35,6 +32,9 @@ plt = InitDataPlot(maxloops);
 
 % initialize uvms structure
 uvms = InitUVMS('DexROV');
+% this struct can be used to evolve what the UVMS has to do
+[mission] = InitMission('DexROV');
+
 % uvms.q 
 % Initial joint positions. You can change these values to initialize the simulation with a 
 % different starting position for the arm
@@ -54,13 +54,22 @@ uvms.goalPosition = pipe_center + (pipe_radius + distanceGoalWrtPipe)*[0 0 1]';
 uvms.wRg = rotation(pi,0,0);
 uvms.wTg = [uvms.wRg uvms.goalPosition; 0 0 0 1];
 
+%%%% base of the vehicle 
+uvms.gpos = uvms.goalPosition + [0,0,1.7]'; %  pgoal for task 2.2
+%wRgpos = rotation(uvms.gpos(4),uvms.gpos(5),uvms.gpos(6));
+wRgpos = rotation(pi,0,0);
+uvms.wTgpos = [wRgpos uvms.gpos(1:3); 0 0 0 1];
+
+% don't know if it helps or not
+[uvms, mission] = UpdateMissionPhase(uvms, mission);
+
 % defines the tool control point
 uvms.eTt = eye(4);
 tic
 for t = 0:deltat:end_time
     % update all the involved variables
     uvms = UpdateTransforms(uvms);
-    uvms = ComputeJacobians(uvms);
+    uvms = ComputeJacobians(uvms,mission);
     uvms = ComputeTaskReferences(uvms, mission);
     uvms = ComputeActivationFunctions(uvms, mission);
    
@@ -70,8 +79,12 @@ for t = 0:deltat:end_time
     Qp = eye(13); 
     % add all the other tasks here!
     % the sequence of iCAT_task calls defines the priority
+    
     [Qp, rhop] = iCAT_task(uvms.A.mu,   uvms.Jmu,   Qp, rhop, uvms.xdot.mu, 0.000001, 0.0001, 10);
     [Qp, rhop] = iCAT_task(uvms.A.ha,   uvms.Jha,   Qp, rhop, uvms.xdot.ha, 0.0001,   0.01, 10);
+    [Qp, rhop] = iCAT_task(uvms.A.mp,   uvms.Jmp,   Qp, rhop, uvms.xdot.mp, 0.0001,   0.01, 10);
+    % Position-Control task
+    [Qp, rhop] = iCAT_task(uvms.A.posc, uvms.Jposc, Qp, rhop, uvms.xdot.posc, 0.0001, 0.01, 10);
     [Qp, rhop] = iCAT_task(uvms.A.t,    uvms.Jt,    Qp, rhop, uvms.xdot.t,  0.0001,   0.01, 10);
     [Qp, rhop] = iCAT_task(eye(13),     eye(13),    Qp, rhop, zeros(13,1),  0.0001,   0.01, 10);    % this task should be the last one
     
@@ -94,15 +107,15 @@ for t = 0:deltat:end_time
     plt = UpdateDataPlot(plt,uvms,t,loop);
     loop = loop + 1;
    
-    % add debug prints here
-    if (mod(t,0.1) == 0)
-        t
-        uvms.p'
-    end
-    
+%     % add debug prints here
+%     if (mod(t,0.1) == 0)
+%         t
+%         uvms.p'
+%     end
+%     
     % enable this to have the simulation approximately evolving like real
     % time. Remove to go as fast as possible
-    SlowdownToRealtime(deltat);
+%     SlowdownToRealtime(deltat);
 end
 
 fclose(uVehicle);

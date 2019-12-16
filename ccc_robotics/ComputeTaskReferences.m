@@ -17,13 +17,17 @@ uvms.xdot.t(4:6) = Saturate(uvms.xdot.t(4:6), 0.2);
 % reference for horizontal attitude
 uvms.xdot.ha = -0.1 * norm(uvms.phi); 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%% Position-Control for base %%%%%%%%%%%%%%%%%%%%%%%
 % position-control reference for vehicle-frame
 % doubt do we need to saturate them? - or do we add a task?
 [ang_posc, lin_posc] = CartError(uvms.wTgpos, uvms.wTv);
-uvms.xdot.posc = 0.2*[lin_posc; ang_posc]; %6x1 vector
+uvms.xdot.posc = [0.2*lin_posc; 2*ang_posc]; %6x1 vector
 uvms.totalError = [lin_posc;ang_posc]; %6x1
 
-
+%%%%%%%%%%%%%%%%%%%%%%%% Minimum Altitude Control  %%%%%%%%%%%%%%%%%%%%%%%
 % call the sensor data to check the actual distance of the base from
 % the sea floor
 % fill this up correctly
@@ -33,27 +37,31 @@ uvms.mac.wdispf = temp(3);
 mac_velocity_upwards = 0.2*(uvms.mac.thresh + uvms.mac.buff - uvms.mac.wdispf);
 uvms.xdot.mac = [0, 0,mac_velocity_upwards,0,0,0 ]';
 
-% landing objective
+%%%%%%%%%%%%%%%%%%%%%%%% Landing Objective %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 la_velocity_downwards = -0.2*uvms.mac.wdispf;
 uvms.xdot.la = [0, 0,la_velocity_downwards,0,0,0 ]';
 
-% misalignemnt objective
-norm_dist = norm(uvms.dist_rock_proj); % the distance vector is in the vehicle frame 
+%%%%%%%%%%%%%%%%%%%%%%%% Misalignmnet Objective  %%%%%%%%%%%%%%%%%%%%%%%%%%
+% the distance vector
+% is in the vehicle frame 
+norm_dist = norm(uvms.dist_rock_proj);  
 
+% axb of the unit vectors = neta*sin(theta)
+rho_dir =cross([1,0,0]',uvms.dist_rock_proj/norm_dist); 
+% get the theta value 
+uvms.theta = asin(norm(rho_dir)); 
+% rho = n*theta
+rho = rho_dir*uvms.theta ; 
+uvms.xdot.at = rho*5; % have to chnage this to suitable value 
 
-rho_dir =cross([1,0,0]',uvms.dist_rock_proj/norm_dist) ; % axb of the unit vectors 
-uvms.theta = asin(norm(rho_dir)); % get the theta value 
-rho = rho_dir*uvms.theta ; % rho = n*theta
-uvms.xdot.at = rho*5;
-
-%%%%%%%%%%%%%%%%%%%%%%% non-reactive task %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-% [ang_posc, lin_posc] = CartError(uvms.landing_pos, uvms.wTv);
-% uvms.xdot.nr = 0.2*[lin_posc; ang_posc]; %6x1 vector
-
+%%%%%%%%%%%%%%%%%%%%%%%%% Non-Reactive task %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 uvms.xdot.nr = [0,0,0,0,0,0]';
 
 %%%%%%%%%%%%%%%%%%%%%%% Joint limit task %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 uvms.xdot.jl = [0 0 0 0 0 0 0]';
+
+%%%%%%%%%%%%%%%%%%%%%% Manipulator Position task 5.1  %%%%%%%%%%%%%%%%%%%%%
+uvms.xdot.mp = 0.2*(mission.preffered_shape - uvms.q(1:4,1));
 
 end
 

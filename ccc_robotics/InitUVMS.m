@@ -54,11 +54,12 @@ uvms.Jt_v = [];
 uvms.Jt = [];
 uvms.Jc = [];
 uvms.Jca = [];
-uvms.Jposc = []; % position-control Jacobian
-uvms.Jmac = []; % minimum altitude control 
-uvms.Jla = []; % landing objective
-uvms.Jat = []; % misalignmnet objective
-uvms.Jnr = []; % non-reactive task 
+uvms.Jposc = [];    % position-control Jacobian
+uvms.Jmac = [];     % minimum altitude control 
+uvms.Jla = [];      % landing objective
+uvms.Jat = [];      % misalignmnet objective
+uvms.Jnr = [];      % non-reactive task 
+uvms.Jmp = [];      % manipulator position task 5.1
     
 uvms.xdot.jl = [];
 uvms.xdot.mu = [];
@@ -67,12 +68,13 @@ uvms.xdot.ha = [];
 uvms.xdot.t = [];
 uvms.xdot.c = [];
 uvms.xdot.ca = [];
-uvms.xdot.posc = []; % position-control Refrence velocity
-uvms.xdot.mac = []; % minimum altitude control 
-uvms.xdot.la = []; % landing objective
-uvms.xdot.at = []; % misalignmnet objective 
-uvms.xdot.nr = []; % non-reactive task 
-    
+uvms.xdot.posc = [];    % position-control Refrence velocity
+uvms.xdot.mac = [];     % minimum altitude control 
+uvms.xdot.la = [];      % landing objective
+uvms.xdot.at = [];      % misalignmnet objective 
+uvms.xdot.nr = [];      % non-reactive task 
+uvms.xdot.mp = [];      % manipulator position task 5.1
+
 uvms.A.jl = zeros(7,7);
 uvms.A.mu = 0;
 uvms.A.cc = zeros(1,1);
@@ -82,9 +84,10 @@ uvms.A.c = [];
 uvms.A.ca = zeros(3,3);
 uvms.A.posc = zeros(6,6);% position-control Activation
 uvms.A.mac = zeros(6,6); % minimum altitude control 
-uvms.A.la = zeros(6,6); % landing objective
-uvms.A.at = zeros(3,3); % misalignmnet objective 
-uvms.A.nr = zeros(6,6); % non-reactive task
+uvms.A.la = zeros(6,6);  % landing objective
+uvms.A.at = zeros(3,3);  % misalignmnet objective 
+uvms.A.nr = zeros(6,6);  % non-reactive task
+uvms.A.mp = eye(4,4);    % manipulator position task 5.1
 
 uvms.toolFrameError = zeros(6,1);
 uvms.totalError = zeros(6,1);
@@ -97,6 +100,6 @@ uvms.mac.thresh = 1;
 uvms.mac.buff = 1;
 uvms.mac.wdispf = 0;
 
-uvms.landing_pos = eye(4); % to save the position where we landed
+% uvms.landing_pos = eye(4); % to save the position where we landed
 end
 

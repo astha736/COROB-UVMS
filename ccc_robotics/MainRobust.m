@@ -10,12 +10,6 @@ end_time = 50;
 loop = 1;
 maxloops = ceil(end_time/deltat);
 
-% this struct can be used to evolve what the UVMS has to do
-% mission.phase = 1;
-% mission.phase_time = 0;
-
-[mission] = InitMission();
-
 % Rotation matrix to convert coordinates between Unity and the <w> frame
 % do not change
 wuRw = rotation(0,-pi/2,pi/2);
@@ -27,8 +21,8 @@ pipe_center = wuRw'*u_pipe_center;     % in world frame coordinates
 pipe_radius = 0.3;
 
 % rock position 
-rock_center = [12.2025   37.3748  -39.8860]'; % in world frame coordinates
-mission.rock_center  = rock_center;
+% rock_center = [12.2025   37.3748  -39.8860]'; % in world frame coordinates
+% mission.rock_center  = rock_center;
 
 % UDP Connection with Unity viewer v2
 uArm = udp('127.0.0.1',15000,'OutputDatagramPacketSize',28);
@@ -43,6 +37,10 @@ plt = InitDataPlot(maxloops);
 
 % initialize uvms structure
 uvms = InitUVMS('Robust');
+
+% this struct can be used to evolve what the UVMS has to do
+[mission] = InitMission('Robust');
+
 % uvms.q 
 % Initial joint positions. You can change these values to initialize the simulation with a 
 % different starting position for the arm
@@ -155,21 +153,7 @@ for t = 0:deltat:end_time
     % add debug prints here
     if (mod(t,0.1) == 0)
         t;
-%         uvms.sensorDistance;
-%         uvms.totalError
-%         abc = all(uvms.totalError) < 0.05
-%         mission.phase
-%         uvms.mac.wdispf
-%         uvms.xdot.la
-        
     end
-    
-%     disp('uvms.theta');
-%     disp(uvms.theta);
-    
-%     if(mission.phase ==0)
-%         break;
-%     end
     % enable this to have the simulation approximately evolving like real
     % time. Remove to go as fast as possible
 %     SlowdownToRealtime(deltat);

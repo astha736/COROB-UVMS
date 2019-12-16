@@ -42,7 +42,8 @@ if mission.robot == 0
 %     mission.ea.nr = zeros(6,6);
 %     mission.ea.jl = zeros(7,7);
 %     mission.ea.mp = eye(4);
-    mission.rock_center  = [12.2025   37.3748  -39.8860]'; % in world frame coordinates
+rock_center = [12.2025   37.3748  -39.8860]'; % in world frame coordinates
+mission.rock_center  = rock_center;
 else
 %     mission.ea.ha = 1;
 %     mission.ea.mu = 1; 
