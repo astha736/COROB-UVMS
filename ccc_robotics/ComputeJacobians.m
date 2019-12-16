@@ -80,7 +80,10 @@ Jat_2 = -1*eye(3);
 uvms.Jat = [zeros(3,7),Jat_1,Jat_2];
 
 %%%%%%%%%%%%%%%%%%%%%%% non-reactive task %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-uvms.Jnr = uvms.Jposc; 
+uvms.Jnr = [zeros(3,7) wRv zeros(3,3);zeros(3,7) zeros(3,3) wRv];
+
+%%%%%%%%%%%%%%%%%%%%%%% Joint limit task %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+uvms.Jjl = [eye(7),zeros(7,6)];
 
 
 

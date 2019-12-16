@@ -13,12 +13,12 @@ function [ ] = PrintPlot( plt )
 % set(hplot, 'LineWidth', 1);
 % legend('qdot_1','qdot_2','qdot_3','qdot_4','qdot_5','qdot_6','qdot_7');
 % 
-% figure(3);
-% hplot = plot(plt.t, plt.a(1:7,:));
-% set(hplot, 'LineWidth', 2);
-% legend('Ajl_11','Ajl_22','Ajl_33','Ajl_44','Ajl_55','Ajl_66','Ajl_77');
+figure('Name','Activation-joints');
+hplot = plot(plt.t, plt.a(1:7,:));
+set(hplot, 'LineWidth', 2);
+legend('Ajl_1','Ajl_2','Ajl_3','Ajl_4','Ajl_5','Ajl_6','Ajl_7');
 
-figure(4);
+figure('Name','Activation-other');
 hplot = plot(plt.t, plt.a(8:10,:));
 set(hplot, 'LineWidth', 2);
 legend('Amu', 'Aha', 'Amac');

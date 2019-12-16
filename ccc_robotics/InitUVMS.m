@@ -96,5 +96,7 @@ uvms.theta = 1;
 uvms.mac.thresh = 1;
 uvms.mac.buff = 1;
 uvms.mac.wdispf = 0;
+
+uvms.landing_pos = eye(4); % to save the position where we landed
 end
 

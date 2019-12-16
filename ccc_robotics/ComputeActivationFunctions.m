@@ -33,5 +33,15 @@ uvms.A.la = mission.ea.la.*uvms.A.la;
 uvms.A.at = eye(3);%
 uvms.A.at = mission.ea.at.*uvms.A.at;
 
+% non-reactive task
 uvms.A.nr = eye(6);
 uvms.A.nr  = mission.ea.nr.*uvms.A.nr;
+
+% joint-limit task 
+buff = 0.5;
+% A_lmin = eye(7);
+for i=1:7
+    uvms.A.jl(i,i) = DecreasingBellShapedFunction(uvms.jlmin(i), uvms.jlmin(i)+buff, 0, 1, uvms.q(i)); + IncreasingBellShapedFunction(uvms.jlmax(i) - buff, uvms.jlmax(i), 0, 1,uvms.q(i));
+end
+
+uvms.A.jl = mission.ea.jl.*uvms.A.jl;

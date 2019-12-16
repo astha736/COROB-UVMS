@@ -44,10 +44,17 @@ norm_dist = norm(uvms.dist_rock_proj); % the distance vector is in the vehicle f
 rho_dir =cross([1,0,0]',uvms.dist_rock_proj/norm_dist) ; % axb of the unit vectors 
 uvms.theta = asin(norm(rho_dir)); % get the theta value 
 rho = rho_dir*uvms.theta ; % rho = n*theta
-uvms.xdot.at = rho*1;
+uvms.xdot.at = rho*5;
 
 %%%%%%%%%%%%%%%%%%%%%%% non-reactive task %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-uvms.xdot.nr = [0,0,0,0,0,0]'; %6x1 vector
- end
+% [ang_posc, lin_posc] = CartError(uvms.landing_pos, uvms.wTv);
+% uvms.xdot.nr = 0.2*[lin_posc; ang_posc]; %6x1 vector
+
+uvms.xdot.nr = [0,0,0,0,0,0]';
+
+%%%%%%%%%%%%%%%%%%%%%%% Joint limit task %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+uvms.xdot.jl = [0 0 0 0 0 0 0]';
+
+end
 
 

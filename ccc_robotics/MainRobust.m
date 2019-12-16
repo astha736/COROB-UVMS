@@ -6,7 +6,7 @@ close all
 
 % Simulation variables (integration and final time)
 deltat = 0.005;
-end_time = 70;
+end_time = 50;
 loop = 1;
 maxloops = ceil(end_time/deltat);
 
@@ -98,23 +98,19 @@ for t = 0:deltat:end_time
     % receive altitude information from unity
     uvms = ReceiveUdpPackets(uvms, uAltitude);
     
-%     disp('uvms.mac.wdispf');
-%     disp(uvms.mac.wdispf);
-    
     % main kinematic algorithm initialization
     % rhop order is [qdot_1, qdot_2, ..., qdot_7, xdot, ydot, zdot, omega_x, omega_y, omega_z]
     rhop = zeros(13,1);
     Qp = eye(13); 
     % task (activation -> only gets activated when base is close to the floor)
     % velocity -> upward velocity prop to error between the minimun
-    % (distance - actual distance )
-%     disp(uvms.A.at);
-%     disp(uvms.Jat);
     
     % the sequence of iCAT_task calls defines the priority 
-    
     % non-reactive task
-    %[Qp, rhop] = iCAT_task(uvms.A.nr,   uvms.Jnr,   Qp, rhop, uvms.xdot.mac, 0.0001,   0.01, 10);
+    [Qp, rhop] = iCAT_task(uvms.A.nr,   uvms.Jnr,   Qp, rhop, uvms.xdot.nr, 0.0001,   0.01, 10);
+    
+    % Joint-limit task
+    [Qp, rhop] = iCAT_task(uvms.A.jl,   uvms.Jjl,   Qp, rhop, uvms.xdot.jl, 0.0001,   0.01, 10);
     
     % Minimum ALtitude Control
     [Qp, rhop] = iCAT_task(uvms.A.mac,   uvms.Jmac,   Qp, rhop, uvms.xdot.mac, 0.0001,   0.01, 10);
@@ -130,7 +126,6 @@ for t = 0:deltat:end_time
 
     % Position-Control task
     [Qp, rhop] = iCAT_task(uvms.A.posc, uvms.Jposc, Qp, rhop, uvms.xdot.posc, 0.0001, 0.01, 10);
-    
     
     [Qp, rhop] = iCAT_task(uvms.A.mu,   uvms.Jmu,   Qp, rhop, uvms.xdot.mu, 0.000001, 0.0001, 10);
     
@@ -159,7 +154,7 @@ for t = 0:deltat:end_time
    
     % add debug prints here
     if (mod(t,0.1) == 0)
-%         t;
+        t;
 %         uvms.sensorDistance;
 %         uvms.totalError
 %         abc = all(uvms.totalError) < 0.05
@@ -169,8 +164,8 @@ for t = 0:deltat:end_time
         
     end
     
-    disp('uvms.theta');
-    disp(uvms.theta);
+%     disp('uvms.theta');
+%     disp(uvms.theta);
     
 %     if(mission.phase ==0)
 %         break;
