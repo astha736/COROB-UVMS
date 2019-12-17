@@ -30,7 +30,11 @@ uvms.A.posc = mission.ea.poc .* uvms.A.posc;
 %%%%%%%%%%%%%%%%%%%%%%%% Minimum Altitude Control  %%%%%%%%%%%%%%%%%%%%%%%
 % always active
 % we need to change the activation uvms.mac.wdispf
-uvms.A.mac(3,3) = DecreasingBellShapedFunction(uvms.mac.thresh ,uvms.mac.thresh + uvms.mac.buff, 0, 1, uvms.mac.wdispf);
+if( uvms.mac.wdispf == 0)
+    uvms.A.mac(3,3) = 0;
+else
+    uvms.A.mac(3,3) = DecreasingBellShapedFunction(uvms.mac.thresh ,uvms.mac.thresh + uvms.mac.buff, 0, 1, uvms.mac.wdispf);
+end
 uvms.A.mac = mission.ea.mac.*uvms.A.mac;
 
 %%%%%%%%%%%%%%%%%%%%%%%% Landing Objective %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

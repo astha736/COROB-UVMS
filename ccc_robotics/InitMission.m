@@ -29,26 +29,8 @@ mission.rock_center = [0,0,0]';
 mission.preffered_shape = [0 0 0 0]';
 
 if mission.robot == 0
-    % activation for robust robot 
-%     mission.ea.mu = 1;
-%     mission.ea.ha = 1;
-%     mission.ea.t = zeros(6,6);
-% 
-%     % activation for  robust robot 
-%     mission.ea.poc = zeros(6,6);
-%     mission.ea.mac = eye(6,6);
-%     mission.ea.la = zeros(6,6);
-%     mission.ea.at = zeros(3,3);
-%     mission.ea.nr = zeros(6,6);
-%     mission.ea.jl = zeros(7,7);
-%     mission.ea.mp = eye(4);
     mission.rock_center  = [12.2025   37.3748  -39.8860]'; % in world frame coordinates
 else
-%     mission.ea.ha = 1;
-%     mission.ea.mu = 1; 
-%     mission.ea.t = eye(6);
-%     mission.ea.mp = eye(4);
-%     mission.ea.poc = eye(6,6);
     mission.preffered_shape = [-0.0031 1.2586 0.0128 -1.2460]';
 end
 

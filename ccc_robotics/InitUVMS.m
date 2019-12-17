@@ -96,9 +96,18 @@ uvms.totalError = zeros(6,1);
 uvms.dist_rock_proj = zeros(3,1);
 uvms.theta = 1;
 
-uvms.mac.thresh = 1;
-uvms.mac.buff = 1;
 uvms.mac.wdispf = 0;
+
+if (strcmp(robotname, 'DexROV'))  
+    uvms.mac.thresh = 0.5;
+    uvms.mac.buff = 0.5; %%%%%%%%%%???? maybe 0.5 ?
+else
+    if (strcmp(robotname, 'Robust'))
+    uvms.mac.thresh = 1;
+    uvms.mac.buff = 1; %%%%%%%%%%???? maybe 0.5 ?
+    end
+end
+
 
 % uvms.landing_pos = eye(4); % to save the position where we landed
 end

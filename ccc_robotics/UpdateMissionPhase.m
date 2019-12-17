@@ -25,6 +25,19 @@ if (norm(uvms.totalError) == 0) % this would mean that inital goal is not set
     return
 end 
 
+% disp('error');
+% disp(uvms.totalError);
+% 
+% disp('uvms.toolFrameError');
+% disp(uvms.toolFrameError);
+
+%             disp('uvms.q');
+%             disp(uvms.q);
+
+%   disp('uvms.p_dot');
+%   disp(uvms.p_dot);
+              
+
 if mission.robot == 0
     % here we write the logic to change phase 
     disp('Robust');
@@ -128,49 +141,63 @@ if mission.robot == 0
      
     end
 else
-    disp('DexROV')
+%     disp('DexROV');
+%     disp('****************************************************************')
 % here we write the logic to change phase 
     switch mission.phase
-%         disp('switch case');
         case 0  %default values 
-                disp('case 0 UpdateMissionPhaseDex ');
+%                 disp('case 0 UpdateMissionPhaseDex ');
                 % case of safe-way point navigation 
                 mission.phase = 1; 
                 
                 % init for safe-way point navigation 
                 mission.ea.ha = 1;
-                mission.ea.mu = 1; 
+                mission.ea.mu = 0; % because we want to maintain a preffered shape - mu and preffered shape are not coherent
                  
                 mission.ea.mp = eye(4);
+%                 mission.ea.mp = zeros(4,4);
                 mission.ea.poc = eye(6);
+                mission.ea.mac = eye(6);
                 
                 mission.ea.t = zeros(6,6);
                 
         case 1 % case of safe-way point navigation 
-            disp('case 1 UpdateMissionPhaseDex');
-            disp('error');
-            disp(uvms.totalError);
+%             disp('case 1 UpdateMissionPhaseDex');
+%               disp('uvms.q');
+%               disp(uvms.q(1:4));
+%               
+%               disp('error in q');
+              disp(mission.preffered_shape - uvms.q(1:4,1));
             if (all((uvms.totalError) < 0.4)==1) % ?????????? switch to norm?
-                % for case 2
+                %for case 2 --- get the robot arm at the right pos
                 mission.phase = 2;
                 
                 mission.ea.ha = 1;
                 mission.ea.mu = 1; % ?????????? set to 0?
                 mission.ea.t = eye(6);
                 
-                mission.ea.mp = zeros(4,4);
+                mission.ea.mac = zeros(6,6);
+                mission.ea.mp = zeros(4,4); % now we dont care about preffers shape so much as reaching the correct tool-frame with great manipulability
                 mission.ea.poc = zeros(6,6);
             end
         case 2
-            disp('case 2');
-            disp('error');
-            disp(uvms.totalError);
-            
-            disp('uvms.toolFrameError');
-            disp(uvms.toolFrameError);
-            
-            disp('uvms.q');
-            disp(uvms.q);
+%             disp('case 2');
+%             disp('error');
+%             disp(uvms.totalError);
+%             
+%             disp('uvms.toolFrameError');
+%             disp(uvms.toolFrameError);
+%             
+% %             disp('uvms.q');
+% %             disp(uvms.q);
+% 
+%               disp('uvms.p');
+%               disp(uvms.p);
+              
+%               disp('error in q');
+%               disp(mission.preffered_shape - uvms.q(1:4,1));
+              
+              
         case 3          
         case 4
     end
