@@ -1,5 +1,7 @@
 function [ ] = PrintPlot( plt )
 
+disp('PrintPlot here 1');
+
 % some predefined plots
 % you can add your own
 
@@ -86,6 +88,8 @@ figure('Name','Task 1.2 disp from sea floor');
 hplot = plot(plt.t,plt.distanceFloor); % 6xn
 set(hplot, 'LineWidth', 2);
 legend('vechicle disp from floor');
+
+disp('PrintPlot here 2');
 
 
 end

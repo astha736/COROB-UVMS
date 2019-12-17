@@ -81,7 +81,7 @@ for t = 0:deltat:end_time
     % the sequence of iCAT_task calls defines the priority
     
     [Qp, rhop] = iCAT_task(uvms.A.mu,   uvms.Jmu,   Qp, rhop, uvms.xdot.mu, 0.000001, 0.0001, 10);
-    [Qp, rhop] = iCAT_task(uvms.A.ha,   uvms.Jha,   Qp, rhop, uvms.xdot.ha, 0.0001,   0.01, 10);
+    %[Qp, rhop] = iCAT_task(uvms.A.ha,   uvms.Jha,   Qp, rhop, uvms.xdot.ha, 0.0001,   0.01, 10);
     [Qp, rhop] = iCAT_task(uvms.A.mp,   uvms.Jmp,   Qp, rhop, uvms.xdot.mp, 0.0001,   0.01, 10);
     % Position-Control task
     [Qp, rhop] = iCAT_task(uvms.A.posc, uvms.Jposc, Qp, rhop, uvms.xdot.posc, 0.0001, 0.01, 10);
