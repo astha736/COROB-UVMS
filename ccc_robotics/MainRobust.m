@@ -105,6 +105,7 @@ for t = 0:deltat:end_time
     
     % the sequence of iCAT_task calls defines the priority 
     % non-reactive task
+    % probably should not be highest !!!!!!!!!!!!!!!
     [Qp, rhop] = iCAT_task(uvms.A.nr,   uvms.Jnr,   Qp, rhop, uvms.xdot.nr, 0.0001,   0.01, 10);
     
     % Joint-limit task

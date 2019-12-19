@@ -51,11 +51,28 @@ uvms.A.nr = eye(6);
 uvms.A.nr  = mission.ea.nr.*uvms.A.nr;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%% Joint-Limit task %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-buff = 0.5;
+% uvms.buff.jl = 0.5;
 % A_lmin = eye(7);
+
+        disp('uvms.q');
+        disp(uvms.q);
+        
 for i=1:7
-    uvms.A.jl(i,i) = DecreasingBellShapedFunction(uvms.jlmin(i), uvms.jlmin(i)+buff, 0, 1, uvms.q(i)); + IncreasingBellShapedFunction(uvms.jlmax(i) - buff, uvms.jlmax(i), 0, 1,uvms.q(i));
+    
+    if( uvms.q(i) < (uvms.jlmin(i)+ uvms.buff.jl) )
+        uvms.A.jl_flag(i) = 1;
+        uvms.A.jl(i,i) = DecreasingBellShapedFunction(uvms.jlmin(i), uvms.jlmin(i)+uvms.buff.jl , 0, 1, uvms.q(i));
+    elseif( uvms.q(i) > (uvms.jlmax(i) - uvms.buff.jl) )
+        uvms.A.jl_flag(i) = 2;
+        uvms.A.jl(i,i) =  IncreasingBellShapedFunction(uvms.jlmax(i) - uvms.buff.jl , uvms.jlmax(i), 0, 1,uvms.q(i));
+    else
+        uvms.A.jl_flag(i) = 0;
+    end
+    
 end
+
+        disp('uvms.A.jl -- before ea');
+        disp(uvms.A.jl);
 uvms.A.jl = mission.ea.jl.*uvms.A.jl;
 
 %%%%%%%%%%%%%%%%%%%%%% Manipulator Position task 5.1  %%%%%%%%%%%%%%%%%%%%%

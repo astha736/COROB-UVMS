@@ -95,6 +95,8 @@ uvms.totalError = zeros(6,1);
 % uvms.angErrorVehicle = zeros(3,1);
 uvms.dist_rock_proj = zeros(3,1);
 uvms.theta = 1;
+uvms.A.jl_flag = zeros(7,1); % flag which tells if at the lower limit or the upper limit
+uvms.buff.jl = 0.2;
 
 uvms.mac.wdispf = 0;
 

@@ -58,17 +58,17 @@ hplot = plot(plt.t,plt.totalError(4:6,:));
 set(hplot, 'LineWidth', 2);
 legend('rx_e','ry_e','rz_e');
 
-% figure('Name','Vehicle-Manipulator-Error');
-% subplot(2,1,1);
-% hplot = plot(plt.t,plt.toolFrameError(1:3,:)); % 6xn
-% set(hplot, 'LineWidth', 2);
-% legend('lx_e','ly_e','lz_e');
-% subplot(2,1,2);
-% hplot = plot(plt.t,plt.toolFrameError(4:6,:));
-% set(hplot, 'LineWidth', 2);
-% legend('rx_e','ry_e','rz_e');
+figure('Name','Vehicle-Manipulator-Error');
+subplot(2,1,1);
+hplot = plot(plt.t,plt.toolFrameError(1:3,:)); % 6xn
+set(hplot, 'LineWidth', 2);
+legend('lx_e','ly_e','lz_e');
+subplot(2,1,2);
+hplot = plot(plt.t,plt.toolFrameError(4:6,:));
+set(hplot, 'LineWidth', 2);
+legend('rx_e','ry_e','rz_e');
 
-figure('Name','Task 1.2 z axis');
+figure('Name','Vehicle Frame Error');
 subplot(2,1,1);
 % c = [];
 % c(:,1) = plt.totalError(3,:);
@@ -83,13 +83,21 @@ subplot(2,1,2);
 hplot = plot(plt.t, plt.p_dot(3,:));
 set(hplot, 'LineWidth', 1);
 legend('zdot');
+% 
+% figure('Name','Tool Frame Error');
+% hplot = plot(plt.t,plt.toolFrameError(1:3,:)); % 6xn
+% set(hplot, 'LineWidth', 2);
+% legend('vechicle disp from floor');
+% 
+% disp('PrintPlot here 2');
 
-figure('Name','Task 1.2 disp from sea floor');
-hplot = plot(plt.t,plt.distanceFloor); % 6xn
-set(hplot, 'LineWidth', 2);
-legend('vechicle disp from floor');
 
-disp('PrintPlot here 2');
+% figure('Name','Task 1.2 disp from sea floor');
+% hplot = plot(plt.t,plt.distanceFloor); % 6xn
+% set(hplot, 'LineWidth', 2);
+% legend('vechicle disp from floor');
+% 
+% disp('PrintPlot here 2');
 
 
 end

@@ -7,16 +7,22 @@ Qp = eye(13);
 % the sequence of iCAT_task calls defines the priority
 
 if(subtask == 2)
+%     uvms.p_dot = true_velocity;
     uvms.xdot.nr = uvms.p_dot;
-    uvms.Jt = [uvms.Jt_a zeros(6,6)];
 end
 
-[Qp, rhop] = iCAT_task(uvms.A.nr,   uvms.Jnr,   Qp, rhop, uvms.xdot.nr, 0.0001,   0.01, 10);
+% we are not using mac here because the sensorDistance = 0, implying no
+% depth sensor
+
+
 [Qp, rhop] = iCAT_task(uvms.A.ha,   uvms.Jha,   Qp, rhop, uvms.xdot.ha, 0.0001,   0.01, 10);
+[Qp, rhop] = iCAT_task(uvms.A.jl,   uvms.Jjl,   Qp, rhop, uvms.xdot.jl,  0.0001,   0.01, 10);
+
+[Qp, rhop] = iCAT_task(uvms.A.nr,   uvms.Jnr,   Qp, rhop, uvms.xdot.nr, 0.0001,   0.01, 10);
+
 [Qp, rhop] = iCAT_task(uvms.A.mu,   uvms.Jmu,   Qp, rhop, uvms.xdot.mu, 0.000001, 0.0001, 10);
+
 % this robot does not have laser sensor and hence, the if statement in
-% Activation will set uvms.A.mac = zeros(6,6)
-[Qp, rhop] = iCAT_task(uvms.A.mac,   uvms.Jmac,   Qp, rhop, uvms.xdot.mac, 0.0001,   0.01, 10);
 
 % Position-Control task
 [Qp, rhop] = iCAT_task(uvms.A.posc, uvms.Jposc, Qp, rhop, uvms.xdot.posc, 0.0001, 0.01, 10);

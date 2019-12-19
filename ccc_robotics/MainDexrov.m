@@ -78,48 +78,70 @@ disp('here 1');
 uvms.eTt = eye(4);
 tic
 for t = 0:deltat:end_time
-    disp('here 2');
+    disp('***************************************************************');
     % update all the involved variables
     uvms = UpdateTransforms(uvms);
     uvms = ComputeJacobians(uvms,mission);
     uvms = ComputeTaskReferences(uvms, mission);
     uvms = ComputeActivationFunctions(uvms, mission);
     
+%     true_velocity = uvms.p_dot;
     [Qp, rhop] = TPIK(uvms,1);
+    % result of the first optimization
+    desired_velocity = rhop(8:13);
     
-    % get the two variables for integration
-%     uvms.q_dot = rhop(1:7);
-    uvms.p_dot = rhop(8:13);
+    if(mission.phase == 2)
+        % run again for the optmization for q_dot
+        [Qp, rhop] = TPIK(uvms,2);
+    end
     
-    [Qp, rhop] = TPIK(uvms,2);
+    % final result is the p_dot from TPIK 1 and q_dot from TPIK 2
+    uvms.p_dot = desired_velocity;
     uvms.q_dot = rhop(1:7);
     
     
     % Integration
 	uvms.q = uvms.q + uvms.q_dot*deltat;
-    G = 1; % gain 
-    w = pi*10; % frequency
-    disturbance_vector = [G*sin(w*deltat),G*sin(w*deltat),G*sin(w*deltat),0,0,0]';
+    G = 0.2; % gain 
+    w = 2*pi*0.5; % frequency
+    disturbance_vector = [G*sin(w*t),G*sin(w*t),0,0,0,0]'; %G*sin(w*deltat)
     
     disp('before uvms.p_dot');
     disp(uvms.p_dot);
 
 
+    
+    vRw = [ uvms.vTw(1:3,1:3), zeros(3,3); zeros(3,3), uvms.vTw(1:3,1:3)];
+    uvms.p_dot = uvms.p_dot+ vRw*disturbance_vector;
     % beware: p_dot should be projected on <v>
-    uvms.p_dot = uvms.p_dot+disturbance_vector;
     uvms.p = integrate_vehicle(uvms.p, uvms.p_dot , deltat);
     
-    disp('after uvms.p_dot');
-    disp(uvms.p_dot);
-    
-    disp('after uvms.p');
-    disp(uvms.p);
-    
-    disp('after uvms.p');
-    disp(uvms.p);
+%     disp('after uvms.p_dot');
+%     disp(uvms.p_dot);
+%     
+%     disp('after uvms.p');
+%     disp(uvms.p);
+%     
+%     disp('after uvms.p');
+%     disp(uvms.p);
+% 
+%     disp('uvms.toolFrameError');
+%     disp(uvms.toolFrameError);
 
-    disp('uvms.toolFrameError');
-    disp(uvms.toolFrameError);
+        disp('uvms.xdot.jl');
+        disp(uvms.xdot.jl);
+        
+        disp('uvms.A.jl --- after ea');
+        disp(uvms.A.jl);
+        
+
+        
+        disp('uvms.A.jl_flag');
+        disp(uvms.A.jl_flag);
+        
+        a = [uvms.jlmin, uvms.jlmax ];
+       disp('limits');
+       disp(a);
     
     % check if the mission phase should be changed
 %     disp('here 7');

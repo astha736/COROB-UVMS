@@ -59,6 +59,16 @@ uvms.xdot.nr = [0,0,0,0,0,0]';
 
 %%%%%%%%%%%%%%%%%%%%%%% Joint limit task %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 uvms.xdot.jl = [0 0 0 0 0 0 0]';
+gain = 0.8;
+for i=1:7
+%     uvms.A.jl(i,i) = DecreasingBellShapedFunction(uvms.jlmin(i), uvms.jlmin(i)+buff, 0, 1, uvms.q(i)); + IncreasingBellShapedFunction(uvms.jlmax(i) - buff, uvms.jlmax(i), 0, 1,uvms.q(i));
+    if(uvms.A.jl_flag(i) ==1)
+        uvms.xdot.jl(i) = gain*(uvms.jlmin(i) + uvms.buff.jl  - uvms.q(i));
+    elseif(uvms.A.jl_flag(i) == 2)
+        uvms.xdot.jl(i) = gain*(uvms.jlmax(i) - uvms.buff.jl  - uvms.q(i));
+    end
+    
+end
 
 %%%%%%%%%%%%%%%%%%%%%% Manipulator Position task 5.1  %%%%%%%%%%%%%%%%%%%%%
 uvms.xdot.mp = 0.2*(mission.preffered_shape - uvms.q(1:4,1));

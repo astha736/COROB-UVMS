@@ -153,21 +153,18 @@ else
                 % init for safe-way point navigation 
                 mission.ea.ha = 1;
                 mission.ea.mu = 0; % because we want to maintain a preffered shape - mu and preffered shape are not coherent
+                mission.ea.jl = eye(7);
                  
                 mission.ea.mp = eye(4);
 %                 mission.ea.mp = zeros(4,4);
                 mission.ea.poc = eye(6);
-                mission.ea.mac = eye(6);
+%                 mission.ea.mac = eye(6);
                 
                 mission.ea.t = zeros(6,6);
+                mission.ea.nr = zeros(6,6);
+               
                 
         case 1 % case of safe-way point navigation 
-%             disp('case 1 UpdateMissionPhaseDex');
-%               disp('uvms.q');
-%               disp(uvms.q(1:4));
-%               
-%               disp('error in q');
-              disp(mission.preffered_shape - uvms.q(1:4,1));
             if (all((uvms.totalError) < 0.4)==1) % ?????????? switch to norm?
                 %for case 2 --- get the robot arm at the right pos
                 mission.phase = 2;
@@ -175,9 +172,13 @@ else
                 mission.ea.ha = 1;
                 mission.ea.mu = 1; % ?????????? set to 0?
                 mission.ea.t = eye(6);
+                mission.ea.mp = eye(4);
+                mission.ea.nr = eye(6);
+                mission.ea.jl = eye(7);
                 
-                mission.ea.mac = zeros(6,6);
-                mission.ea.mp = zeros(4,4); % now we dont care about preffers shape so much as reaching the correct tool-frame with great manipulability
+%                 mission.ea.mac = zeros(6,6);
+                
+               
                 mission.ea.poc = zeros(6,6);
             end
         case 2
