@@ -52,11 +52,7 @@ uvms.A.nr  = mission.ea.nr.*uvms.A.nr;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%% Joint-Limit task %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % uvms.buff.jl = 0.5;
-% A_lmin = eye(7);
-
-        disp('uvms.q');
-        disp(uvms.q);
-        
+% A_lmin = eye(7);     
 for i=1:7
     
     if( uvms.q(i) < (uvms.jlmin(i)+ uvms.buff.jl) )
@@ -71,8 +67,8 @@ for i=1:7
     
 end
 
-        disp('uvms.A.jl -- before ea');
-        disp(uvms.A.jl);
+%         disp('uvms.A.jl -- before ea');
+%         disp(uvms.A.jl);
 uvms.A.jl = mission.ea.jl.*uvms.A.jl;
 
 %%%%%%%%%%%%%%%%%%%%%% Manipulator Position task 5.1  %%%%%%%%%%%%%%%%%%%%%

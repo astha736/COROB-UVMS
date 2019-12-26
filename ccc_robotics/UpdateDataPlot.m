@@ -27,6 +27,7 @@ plt.a(1:7, loop) = diag(uvms.A.jl);
 plt.a(8, loop) = uvms.A.mu;
 plt.a(9, loop) = uvms.A.ha(1,1);
 plt.a(10,loop) = uvms.A.mac(3,3);
+plt.a(11,loop) = uvms.A.la(3,3);
 
 plt.toolFrameError(:, loop) = uvms.toolFrameError;
 plt.totalError(:, loop) = uvms.totalError;

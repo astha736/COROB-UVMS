@@ -15,8 +15,8 @@ mission.ea.t = zeros(6,6);
 
 % activation for  robust robot 
 mission.ea.poc = zeros(6,6);
-mission.ea.mac = zeros(6,6);
-mission.ea.la = zeros(6,6);
+mission.ea.mac = zeros(3,3);
+mission.ea.la = zeros(3,3);
 mission.ea.at = zeros(3,3);
 mission.ea.nr = zeros(6,6);
 mission.ea.jl = zeros(7,7);
