@@ -102,51 +102,28 @@ for t = 0:deltat:end_time
     
     % Integration
 	uvms.q = uvms.q + uvms.q_dot*deltat;
-    G = 0.2; % gain 
-    w = 2*pi*0.5; % frequency
+    G = 1; % gain 
+    w = 2*pi*0.2; % frequency
+    
+%     G = 0.2; % gain 
+%     w = 2*pi*0.9; % frequency
+    
     disturbance_vector = [G*sin(w*t),G*sin(w*t),0,0,0,0]'; %G*sin(w*deltat)
     
-    disp('before uvms.p_dot');
-    disp(uvms.p_dot);
 
 
     
     vRw = [ uvms.vTw(1:3,1:3), zeros(3,3); zeros(3,3), uvms.vTw(1:3,1:3)];
-    uvms.p_dot = uvms.p_dot+ vRw*disturbance_vector;
+%     uvms.p_dot = uvms.p_dot+ vRw*disturbance_vector;
     % beware: p_dot should be projected on <v>
     uvms.p = integrate_vehicle(uvms.p, uvms.p_dot , deltat);
     
-%     disp('after uvms.p_dot');
-%     disp(uvms.p_dot);
-%     
-%     disp('after uvms.p');
-%     disp(uvms.p);
-%     
-%     disp('after uvms.p');
-%     disp(uvms.p);
-% 
-%     disp('uvms.toolFrameError');
-%     disp(uvms.toolFrameError);
-
-        disp('uvms.xdot.jl');
-        disp(uvms.xdot.jl);
-        
-        disp('uvms.A.jl --- after ea');
-        disp(uvms.A.jl);
-        
-
-        
-        disp('uvms.A.jl_flag');
-        disp(uvms.A.jl_flag);
-        
+%         
         a = [uvms.jlmin, uvms.jlmax ];
        disp('limits');
        disp(a);
     
     % check if the mission phase should be changed
-%     disp('here 7');
-%     disp(mission.phase);
-%     disp(mission.robot);
     [uvms, mission] = UpdateMissionPhase(uvms, mission);
     
     % send packets to Unity viewer

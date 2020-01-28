@@ -6,7 +6,7 @@ close all
 
 % Simulation variables (integration and final time)
 deltat = 0.005;
-end_time = 30;
+end_time = 50;
 loop = 1;
 maxloops = ceil(end_time/deltat);
 
@@ -52,10 +52,10 @@ uvms.q = [-0.0031 0 0.0128 -1.2460 0.0137 0.0853-pi/2 0.0137]';
 % RPY angles are applied in the following sequence
 % R(rot_x, rot_y, rot_z) = Rz (rot_z) * Ry(rot_y) * Rx(rot_x)
 %uvms.p = [8.5 38.5 -38   0 -0.06 0.5]'; 
-%uvms.p = [48.5 11.5 -33 0 0 -pi/2]'; % mac task Task 1.2
-%uvms.p = [10.5 35.5 -36 0 0  pi/2]'; % task 1.1
+% uvms.p = [48.5 11.5 -33 0 0 -pi/2]'; % mac task Task 1.2
+uvms.p = [10.5 35.5 -36 0 0  pi/2]'; % task 1.1 posc
 %uvms.p = [10.5 37.5 -38 0 -0.06 0.5]';
-uvms.p = [8.5 38.5 -36   0 -0.06 0.5]'; % init p task 2.2
+% uvms.p = [8.5 38.5 -36   0 -0.06 0.5]'; % init p task 2.2
 
 % defines the goal position for the end-effector/tool position task
 uvms.goalPosition = [12.2025   37.3748  -39.8860]';
@@ -63,10 +63,11 @@ uvms.wRg = rotation(0, pi, pi/2);
 uvms.wTg = [uvms.wRg uvms.goalPosition; 0 0 0 1];
 
 % position-control goal Position
-%uvms.gpos = [10.5 37.5 -38 pi/4 pi/4 0]';
-% uvms.gpos = [10.5 37.5 -38 0 0 0]'; % task 1.1 
-% uvms.gpos = [50 12.5 -53 0 0 -pi/2]'; % mac task Task 1.2
-uvms.gpos = [10.5 37.5 -38 0 -0.06 0.5]'; %  pgoal for task 2.2
+%uvms.gpos = [10.5 37.5 -38 pi/4 pi/4 0]';% task 1.1.2 posc
+% uvms.gpos = [10.5 37.5 -38 0 0 0]'; % task 1.1 posc
+% uvms.gpos = [50 -12.5 -33 0 0 -pi/2]'; % mac task Task 1.2
+% uvms.gpos = [10.5 37.5 -38 0 -0.06 0.5]'; %  pgoal for task 2.2
+ uvms.gpos =[10.5 35.5 -36 0 0  pi/2]';
 wRgpos = rotation(uvms.gpos(4),uvms.gpos(5),uvms.gpos(6));
 uvms.wTgpos = [wRgpos uvms.gpos(1:3); 0 0 0 1];
 
@@ -106,10 +107,10 @@ for t = 0:deltat:end_time
     % the sequence of iCAT_task calls defines the priority 
     % non-reactive task
     % probably should not be highest !!!!!!!!!!!!!!!
-    %[Qp, rhop] = iCAT_task(uvms.A.nr,   uvms.Jnr,   Qp, rhop, uvms.xdot.nr, 0.0001,   0.01, 10);
+    [Qp, rhop] = iCAT_task(uvms.A.nr,   uvms.Jnr,   Qp, rhop, uvms.xdot.nr, 0.0001,   0.01, 10);
     
     % Joint-limit task
-    %[Qp, rhop] = iCAT_task(uvms.A.jl,   uvms.Jjl,   Qp, rhop, uvms.xdot.jl, 0.0001,   0.01, 10);
+    [Qp, rhop] = iCAT_task(uvms.A.jl,   uvms.Jjl,   Qp, rhop, uvms.xdot.jl, 0.0001,   0.01, 10);
     
     % Minimum ALtitude Control
     [Qp, rhop] = iCAT_task(uvms.A.mac,   uvms.Jmac,   Qp, rhop, uvms.xdot.mac, 0.0001,   0.01, 10);
@@ -130,7 +131,6 @@ for t = 0:deltat:end_time
 
     
     [Qp, rhop] = iCAT_task(uvms.A.mu,   uvms.Jmu,   Qp, rhop, uvms.xdot.mu, 0.000001, 0.0001, 10);
-     
     [Qp, rhop] = iCAT_task(uvms.A.t,    uvms.Jt,    Qp, rhop, uvms.xdot.t,  0.0001,   0.01, 10);
     
     [Qp, rhop] = iCAT_task(eye(13),     eye(13),    Qp, rhop, zeros(13,1),  0.0001,   0.01, 10);    % this task should be the last one
@@ -157,6 +157,8 @@ for t = 0:deltat:end_time
     % add debug prints here
     if (mod(t,0.1) == 0)
         t;
+%         disp('uvms.A.jl');
+%         disp(uvms.A.jl);
     end
     % enable this to have the simulation approximately evolving like real
     % time. Remove to go as fast as possible

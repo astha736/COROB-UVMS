@@ -67,8 +67,6 @@ for i=1:7
     
 end
 
-%         disp('uvms.A.jl -- before ea');
-%         disp(uvms.A.jl);
 uvms.A.jl = mission.ea.jl.*uvms.A.jl;
 
 %%%%%%%%%%%%%%%%%%%%%% Manipulator Position task 5.1  %%%%%%%%%%%%%%%%%%%%%

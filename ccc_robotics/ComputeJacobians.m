@@ -76,7 +76,7 @@ uvms.dist_rock_proj = uvms.vTw(1:3,1:3)*horz_proj*distance_rock;
 % vRw * hori_plane * wRv  %*uvms.p_dot(1:3);
 v_HorProj_v = uvms.vTw(1:3,1:3)*horz_proj*uvms.wTv(1:3,1:3);
 norm_r = norm(uvms.dist_rock_proj);
-disp(uvms.dist_rock_proj);
+
 if(norm_r == 0)
     Jat_1 = zeros(3,3);
 else

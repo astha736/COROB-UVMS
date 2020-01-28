@@ -20,8 +20,8 @@ uvms.p_dot = [0 0 0 0 0 0]';
 uvms.p_ddot = [0 0 0 0 0 0]';
 
 % joint limits corresponding to the actual MARIS arm configuration
-uvms.jlmin  = [-2.9;-1.6;-2.9;-2.95;-2.9;-1.65;-2.8];
-uvms.jlmax  = [2.9;1.65;2.9;0.01;2.9;1.25;2.8];
+uvms.jlmin  = [-2.9;-1.6  ; -2.9  ; -2.95 ; -2.9 ;-1.65 ;-2.8];
+uvms.jlmax  = [ 2.9; 1.65 ;  2.9  ; 0.01  ;  2.9 ; 1.25 ; 2.8];
 
 % to be compute at each time step
 uvms.wTv = eye(4,4);

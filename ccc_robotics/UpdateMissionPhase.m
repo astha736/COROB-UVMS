@@ -25,19 +25,6 @@ if (norm(uvms.totalError) == 0) % this would mean that inital goal is not set
     return
 end 
 
-% disp('error');
-% disp(uvms.totalError);
-% 
-% disp('uvms.toolFrameError');
-% disp(uvms.toolFrameError);
-
-%             disp('uvms.q');
-%             disp(uvms.q);
-
-%   disp('uvms.p_dot');
-%   disp(uvms.p_dot);
-              
-
 if mission.robot == 0
     % here we write the logic to change phase 
     disp('Robust');
@@ -47,9 +34,10 @@ if mission.robot == 0
                 mission.phase = 1; % way point navigation 
                 
                 % way point navigation 
-                % in phase 1 in next loop init 
                 mission.ea.ha = 1;
                 mission.ea.mu = 1; 
+                
+                 mission.ea.jl = eye(7);
                 
                 mission.ea.mac = eye(3);
                 mission.ea.poc = eye(6);
@@ -60,15 +48,13 @@ if mission.robot == 0
                 
                 mission.ea.t = zeros(6,6);
                 mission.ea.nr = zeros(6,6);
-                mission.ea.jl = zeros(7,7);
                 mission.ea.mp = zeros(4,4);
                 
         case 1  
-            % way point navigation 
-            if ((norm(uvms.totalError(1:3)) < 0.4)==1 && (norm(uvms.totalError(3:6)) < 0.2)==1) %%%%% ? maybe change this to norms
-                disp('change in phase****************way -point navigation*************************');
+%             way point navigation 
+            if ((norm(uvms.totalError(1:3)) < 0.4) && (norm(uvms.totalError(3:6)) < 0.2)) %%%%% ? maybe change this to norms
                 % set the external activation for case 2: alignment 
-                mission.phase = 2; % alignment 
+                mission.phase = 2; % alignment task
                 
                 % in phase 2 in next loop for alignment task 
                 mission.ea.ha = 1;
@@ -77,31 +63,29 @@ if mission.robot == 0
                 mission.ea.mac = eye(3);
                 mission.ea.at  = eye(3);
                 
+                mission.ea.jl = eye(7);
+                
                 mission.ea.la  = zeros(3,3); 
                 mission.ea.poc = zeros(6,6);
                 
                 mission.ea.t = zeros(6,6);
                 mission.ea.nr = zeros(6,6);
-                mission.ea.jl = zeros(7,7);
                 mission.ea.mp = zeros(4,4);
             end
          
         case 2
             
-            disp('in mission phase 2');
-%             disp(uvms.theta);
-%             disp(uvms.A.at);
-%             cross_disp_veh = cross([1,0,0]',uvms.dist_rock_proj); % axb which we use to get the direction of rho vector
-            if((uvms.theta < 0.5) == 1) % 0.05 origibnal value 
-                disp('change in phase**************** alignment change *************************');
+            if((uvms.theta < 0.1) == 1) % 0.05 origibnal value 
+                
                 mission.phase = 3; % landing task 
                 
-                % in phase 3 in next loop for landing task
+                % landing task 
                 mission.ea.ha = 1;
                 mission.ea.mu = 1; 
                 
                 mission.ea.la  = eye(3); 
                 mission.ea.at  = eye(3);
+                mission.ea.jl = eye(7);
                 
                 mission.ea.mac = zeros(3,3);
                 
@@ -109,36 +93,40 @@ if mission.robot == 0
                 mission.ea.poc = zeros(6,6);
                 mission.ea.t = zeros(6,6);
                 mission.ea.nr = zeros(6,6);
-                mission.ea.jl = zeros(7,7);
                 mission.ea.mp = zeros(4,4);
             end
     
         case 3
             % landing task
-%             if( uvms.mac.wdispf < 0.1) %  0.05 original value the world projection_z of the sensor from floor  landing 
-%                 disp('change in phase**************** alignment change *************************');
-%                 mission.phase = 4;  % tool frame control
-%                 
-%                 % in phase 3 in next loop for frame control
-%                 mission.ea.ha = 1;
-%                 mission.ea.mu = 1; % ???????? maybe this should be zero ?
-%                 mission.ea.t = eye(6);
-%                 mission.ea.nr = eye(6);
-%                 mission.ea.jl = eye(7);
-%                 
-%                 
-%                 
-%                 mission.ea.mac = zeros(3,3);
-%                 mission.ea.la  = zeros(3,3);  
-%                 mission.ea.at  = zeros(3,3);
-%                 mission.ea.poc = zeros(6,6);
-%                 mission.ea.mp = zeros(4,4);
-%                 
-% %                 uvms.landing_pos = uvms.wTv;           
-%             end
-%            
+            if( uvms.mac.wdispf < 0.1) %  0.05 original value the world projection_z of the sensor from floor  landing 
+                mission.phase = 4;  % tool frame control
+                
+                % tool frame control
+                mission.ea.ha = 1;
+                mission.ea.mu = 1; % ???????? maybe this should be zero ?
+                mission.ea.t = eye(6);
+                mission.ea.nr = eye(6);
+                mission.ea.jl = eye(7);
+                
+                
+                
+                mission.ea.mac = zeros(3,3);
+                mission.ea.la  = zeros(3,3);  
+                mission.ea.at  = zeros(3,3);
+                mission.ea.poc = zeros(6,6);
+                mission.ea.mp = zeros(4,4);
+                
+%                 uvms.landing_pos = uvms.wTv;           
+            end
+           
         case 4
-            disp(' tool frame control *************************');
+%             disp(' tool frame control *************************');
+            disp('uvms.A.jl');
+            disp(diag(uvms.A.jl));
+            
+            disp('uvms.q');
+            disp(uvms.q);
+
      
     end
 else
@@ -153,20 +141,18 @@ else
                 
                 % init for safe-way point navigation 
                 mission.ea.ha = 1;
-                mission.ea.mu = 0; % because we want to maintain a preffered shape - mu and preffered shape are not coherent
+                mission.ea.mu = 1;
                 mission.ea.jl = eye(7);
                  
                 mission.ea.mp = eye(4);
-%                 mission.ea.mp = zeros(4,4);
                 mission.ea.poc = eye(6);
-%                 mission.ea.mac = eye(3);
                 
-                mission.ea.t = zeros(6,6);
+                mission.ea.t =  zeros(6,6);
                 mission.ea.nr = zeros(6,6);
                
                 
         case 1 % case of safe-way point navigation 
-            if (all((uvms.totalError) < 0.4)==1) % ?????????? switch to norm?
+            if (norm(uvms.totalError) < 0.4)
                 %for case 2 --- get the robot arm at the right pos
                 mission.phase = 2;
                 
@@ -183,21 +169,6 @@ else
                 mission.ea.poc = zeros(6,6);
             end
         case 2
-%             disp('case 2');
-%             disp('error');
-%             disp(uvms.totalError);
-%             
-%             disp('uvms.toolFrameError');
-%             disp(uvms.toolFrameError);
-%             
-% %             disp('uvms.q');
-% %             disp(uvms.q);
-% 
-%               disp('uvms.p');
-%               disp(uvms.p);
-              
-%               disp('error in q');
-%               disp(mission.preffered_shape - uvms.q(1:4,1));
               
               
         case 3          

@@ -1,5 +1,5 @@
 function [ plt ] = UpdateDataPlot( plt, uvms, t, loop )
-
+disp('Update Data Plotq 1');
 % this function samples the variables contained in the structure uvms
 % and saves them in arrays inside the struct plt
 % this allows to have the time history of the data for later plots
@@ -29,6 +29,11 @@ plt.a(9, loop) = uvms.A.ha(1,1);
 plt.a(10,loop) = uvms.A.mac(3,3);
 plt.a(11,loop) = uvms.A.la(3,3);
 
+plt.a_posc_ha(1:6, loop) = diag(uvms.A.posc);
+plt.a_at(1:3,loop) = diag(uvms.A.at);
+plt.a_mp(1:4,loop) = diag(uvms.A.mp);
+
+
 plt.toolFrameError(:, loop) = uvms.toolFrameError;
 plt.totalError(:, loop) = uvms.totalError;
 
@@ -37,4 +42,5 @@ plt.tooly(:,loop) = uvms.wTt(2,4);
 
 % distance of the vehicle from the sea floor (z projection(w) of laser data)
 plt.distanceFloor(:,loop) = uvms.mac.wdispf;
+disp('Update Data Plotq 1');
 end

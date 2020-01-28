@@ -18,6 +18,9 @@ function [plt] = InitDataPlot( maxloops)
     plt.xdot_t = zeros(6, maxloops);
 
     plt.a = zeros(11, maxloops);
+    plt.a_posc_ha = zeros(7, maxloops);
+    plt.a_at = zeros(3, maxloops);
+    plt.a_mp = zeros(4, maxloops);
 
     plt.virtualFrameError = zeros(6, maxloops);
     plt.toolFrameError = zeros(6, maxloops);

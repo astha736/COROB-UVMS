@@ -1,6 +1,6 @@
  function [uvms] = ComputeTaskReferences(uvms, mission)
 % compute the task references here
-
+disp('ComputeTaskReference 1');
 % reference for manipulability
 uvms.xdot.mu = 0.1 * (0.12 - uvms.mu);
 
@@ -24,7 +24,7 @@ uvms.xdot.ha = -0.1 * norm(uvms.phi);
 % position-control reference for vehicle-frame
 % doubt do we need to saturate them? - or do we add a task?
 [ang_posc, lin_posc] = CartError(uvms.wTgpos, uvms.wTv);
-uvms.xdot.posc = [0.2*lin_posc; 2*ang_posc]; %6x1 vector
+uvms.xdot.posc = [0.2*lin_posc; .5*ang_posc]; %6x1 vector
 uvms.totalError = [lin_posc;ang_posc]; %6x1
 
 %%%%%%%%%%%%%%%%%%%%%%%% Minimum Altitude Control  %%%%%%%%%%%%%%%%%%%%%%%
@@ -34,6 +34,7 @@ uvms.totalError = [lin_posc;ang_posc]; %6x1
 % check if the projections are correct 
 temp = uvms.wTv*[0,0,uvms.sensorDistance,0]';
 uvms.mac.wdispf = temp(3);
+% mac_velocity_upwards = 0.2*(uvms.mac.thresh - uvms.mac.wdispf);
 mac_velocity_upwards = 0.2*(uvms.mac.thresh + uvms.mac.buff - uvms.mac.wdispf);
 uvms.xdot.mac = [0, 0,mac_velocity_upwards]';
 
@@ -52,7 +53,7 @@ rho_dir =cross([1,0,0]',uvms.dist_rock_proj/norm_dist);
 uvms.theta = asin(norm(rho_dir)); 
 % rho = n*theta
 rho = rho_dir*uvms.theta ; 
-uvms.xdot.at = rho*5; % have to chnage this to suitable value 
+uvms.xdot.at = rho*1.5; % have to chnage this to suitable value 
 
 %%%%%%%%%%%%%%%%%%%%%%%%% Non-Reactive task %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 uvms.xdot.nr = [0,0,0,0,0,0]';
@@ -73,6 +74,7 @@ end
 %%%%%%%%%%%%%%%%%%%%%% Manipulator Position task 5.1  %%%%%%%%%%%%%%%%%%%%%
 uvms.xdot.mp = 0.2*(mission.preffered_shape - uvms.q(1:4,1));
 
+disp('ComputeTaskReference 2');
 end
 
 
